@@ -1,32 +1,28 @@
-import { Activity, HeartPulse, Shield, Users } from "lucide-react";
+import { Ambulance, CalendarDays, FlaskConical, Headset } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 import { services } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 const ICON_MAP = {
-	HeartPulse,
-	Activity,
-	Users,
-	Shield,
+	HeartPulse: FlaskConical, // Well equipped lab
+	Activity: Ambulance, // Emergency Ambulance
+	Users: CalendarDays, // Online Appointment
+	Shield: Headset, // Call Center
 };
 
 export function Services() {
 	return (
-		<section className="bg-slate-50/50 py-24">
+		<section className="bg-white py-24">
 			<div className="mx-auto max-w-400 px-6">
-				<div className="mb-16 space-y-4 text-center">
-					<h2 className="font-bold text-primary text-sm uppercase tracking-widest">
-						Our Services
+				<div className="mb-20 space-y-4 text-center">
+					<h2 className="font-bold text-4xl text-slate-900 lg:text-5xl">
+						Our Medical Services
 					</h2>
-					<p className="font-bold text-4xl text-slate-900 lg:text-5xl">
-						Specialized Care for Your Health
-					</p>
-					<p className="mx-auto max-w-2xl text-lg text-slate-600">
-						We provide a wide range of medical services with a focus on
-						patient-centered care and advanced technology.
+					<p className="mx-auto max-w-2xl font-medium text-slate-500">
+						We are dedicated to serve you <br />
+						best medical services
 					</p>
 				</div>
 
@@ -34,37 +30,32 @@ export function Services() {
 					{services.map((service) => {
 						const IconComponent =
 							ICON_MAP[service.icon as keyof typeof ICON_MAP];
+
 						return (
 							<Card
-								className="group overflow-hidden rounded-3xl border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+								className={cn(
+									"group flex flex-col items-center justify-center rounded-[2.5rem] p-12 text-center transition-all duration-300",
+									"border-none bg-[#F8F9FA] shadow-sm hover:bg-primary hover:text-white hover:shadow-2xl hover:shadow-primary/20"
+								)}
 								key={service.title}
 							>
-								<CardHeader className="p-8 pb-0">
+								<CardContent className="flex flex-col items-center space-y-6 p-0">
 									<div
 										className={cn(
-											"mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-50 transition-colors group-hover:bg-primary/10",
-											service.color
+											"flex h-20 w-20 items-center justify-center rounded-full transition-all duration-300",
+											"bg-white text-primary shadow-lg shadow-slate-200 group-hover:bg-white/20 group-hover:text-white group-hover:shadow-none"
 										)}
 									>
-										{IconComponent && <IconComponent className="h-7 w-7" />}
+										{IconComponent && <IconComponent className="h-10 w-10" />}
 									</div>
-									<CardTitle className="font-bold text-slate-900 text-xl">
-										{service.title}
-									</CardTitle>
-								</CardHeader>
-								<CardContent className="p-8 pt-4">
-									<p className="text-slate-600 leading-relaxed">
-										{service.description}
-									</p>
-									<Button
-										className="mt-4 h-auto p-0 font-bold text-primary transition-all group-hover:gap-2"
-										variant="link"
+									<h3
+										className={cn(
+											"font-bold text-xl leading-tight transition-colors duration-300",
+											"text-slate-900 group-hover:text-white"
+										)}
 									>
-										Read More
-										<span className="opacity-0 transition-opacity group-hover:opacity-100">
-											→
-										</span>
-									</Button>
+										{service.title}
+									</h3>
 								</CardContent>
 							</Card>
 						);

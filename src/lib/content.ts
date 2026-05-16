@@ -36,42 +36,57 @@ export const services = [
 export const doctors = [
 	{
 		id: 1,
-		name: "Dr. Sarah Johnson",
+		name: "Dr. Sara Khan",
 		specialty: "Chief Cardiologist",
-		image: "/doctor_sarah_johnson_1778838251495.png",
+		image: "/doctors/sara.svg",
 		experience: "15+ Years",
 	},
 	{
 		id: 2,
-		name: "Dr. Michael Chen",
+		name: "Dr. John Doe",
 		specialty: "General Physician",
-		image: "/doctor_michael_chen_1778838272721.png",
+		image: "/doctors/john doe.svg",
 		experience: "10+ Years",
 	},
 	{
 		id: 3,
-		name: "Dr. Emily Rodriguez",
+		name: "Dr. Usman Ahmed",
 		specialty: "Pediatric Specialist",
-		image: "/doctor_emily_rodriguez_1778838292840.png",
+		image: "/doctors/usman.svg",
 		experience: "12+ Years",
+	},
+	{
+		id: 4,
+		name: "Dr. Yusuf Qadri",
+		specialty: "Neurologist",
+		image: "/doctors/yusuf.svg",
+		experience: "8+ Years",
 	},
 ];
 
 export const testimonials = [
 	{
 		id: 1,
-		name: "John Doe",
-		role: "Patient",
-		content:
-			"The care I received at B2 Pro Healthcare was exceptional. The doctors are truly experts in their fields.",
+		name: "Sara Ali Khan",
+		role: "Cardiologist Patient",
+		image: "/doctors/sara.svg",
+		content: "Thanks for all the services, no doubt it is the best hospital.",
 		rating: 5,
 	},
 	{
 		id: 2,
-		name: "Mary Smith",
-		role: "Patient",
-		content:
-			"Highly recommend for anyone looking for premium and trustworthy healthcare services.",
+		name: "Simon Targett",
+		role: "Neurologist Patient",
+		image: "/doctors/john doe.svg",
+		content: "Thanks for all the services, no doubt it is the best hospital.",
+		rating: 5,
+	},
+	{
+		id: 3,
+		name: "Sara Ali Khan",
+		role: "Cardiologist Patient",
+		image: "/doctors/yusuf.svg",
+		content: "Thanks for all the services, no doubt it is the best hospital.",
 		rating: 5,
 	},
 ];

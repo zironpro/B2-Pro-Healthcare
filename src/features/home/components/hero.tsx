@@ -1,82 +1,75 @@
 import Image from "next/image";
 
-import { Shield } from "lucide-react";
+import { Activity, ArrowRight, Pill } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
 	return (
-		<section className="relative w-full overflow-hidden bg-white pt-32 pb-16 lg:pt-40 lg:pb-24">
-			<div className="relative z-10 mx-auto max-w-400 px-6">
-				<div className="flex flex-col items-center gap-12 lg:flex-row">
-					{/* Text Content */}
-					<div className="max-w-2xl flex-1 space-y-8 text-center lg:text-left">
-						<Badge
-							className="fade-in slide-in-from-bottom-4 animate-in rounded-full border-none bg-secondary/10 px-4 py-2 font-medium text-secondary text-sm duration-1000"
-							variant="secondary"
-						>
-							<Shield className="mr-2 h-4 w-4" />
-							Trusted by over 10,000+ patients
-						</Badge>
+		<section className="relative w-full bg-white px-4 pt-28 pb-12 lg:pt-36 lg:pb-20">
+			{/* Main Banner Container */}
+			<div className="relative mx-auto min-h-[350px] max-w-[1600px] overflow-hidden rounded-[3rem] bg-primary lg:min-h-[520px]">
+				{/* Background Decorative Text */}
+				<div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden">
+					<h1 className="-translate-y-2 transform font-black text-[10rem] text-accent leading-none tracking-tighter opacity-20 lg:text-[18rem]">
+						Healthcare
+					</h1>
+				</div>
 
-						<h1 className="fade-in slide-in-from-bottom-6 animate-in font-bold text-5xl text-slate-900 tracking-tight delay-200 duration-1000 lg:text-7xl">
-							Revolutionizing <span className="text-primary">Healthcare</span>{" "}
-							for Everyone
-						</h1>
-
-						<p className="fade-in slide-in-from-bottom-8 animate-in text-slate-600 text-xl leading-relaxed delay-300 duration-1000">
-							Experience the next generation of medical care with our advanced
-							digital platform. Connect with top specialists, manage your health
-							records, and book appointments seamlessly.
-						</p>
-
-						<div className="fade-in slide-in-from-bottom-10 flex animate-in flex-col items-center gap-4 pt-4 delay-500 duration-1000 sm:flex-row">
-							<Button
-								className="h-14 w-full rounded-xl px-8 text-lg shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 sm:w-auto"
-								size="lg"
-							>
-								Book Appointment
-							</Button>
-							<Button
-								className="h-14 w-full rounded-xl border-2 border-secondary/20 px-8 text-lg text-secondary transition-all hover:bg-secondary/5 sm:w-auto"
-								size="lg"
-								variant="outline"
-							>
-								Learn More
-							</Button>
+				{/* Foreground Content Wrapper */}
+				<div className="absolute inset-0 z-10 flex flex-col justify-between p-6 lg:p-10">
+					{/* Top Layer: Badges */}
+					<div className="relative flex w-full items-start justify-between">
+						<div className="flex cursor-default items-center space-x-3 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 backdrop-blur-md transition-all hover:bg-white/20">
+							<div className="flex h-7 w-7 items-center justify-center rounded-full bg-secondary text-primary">
+								<Activity className="h-4 w-4" />
+							</div>
+							<span className="font-bold text-white text-xs tracking-wide lg:text-base">
+								Reduce HbA1c
+							</span>
 						</div>
 
-						{/* Stats Cards */}
-						<div className="fade-in slide-in-from-bottom-12 grid animate-in grid-cols-2 gap-6 pt-12 delay-700 duration-1000 md:grid-cols-3">
-							<div className="flex flex-col">
-								<span className="font-bold text-3xl text-slate-900">250+</span>
-								<span className="text-slate-500 text-sm">Expert Doctors</span>
+						<div className="flex cursor-default items-center space-x-3 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 backdrop-blur-md transition-all hover:bg-white/20">
+							<div className="flex h-7 w-7 items-center justify-center rounded-full bg-green-300 text-primary">
+								<Pill className="h-4 w-4" />
 							</div>
-							<div className="flex flex-col">
-								<span className="font-bold text-3xl text-slate-900">15+</span>
-								<span className="text-slate-500 text-sm">Specializations</span>
-							</div>
-							<div className="flex flex-col">
-								<span className="font-bold text-3xl text-slate-900">24/7</span>
-								<span className="text-slate-500 text-sm">Emergency Care</span>
-							</div>
+							<span className="font-bold text-white text-xs tracking-wide lg:text-base">
+								No More Medications
+							</span>
 						</div>
 					</div>
 
-					{/* Hero Image / Visual Element */}
-					<div className="fade-in slide-in-from-right-10 relative flex-1 animate-in delay-300 duration-1000">
-						<div className="relative z-10 overflow-hidden rounded-3xl border-8 border-white shadow-2xl shadow-blue-100">
-							<Image
-								alt="Modern Healthcare"
-								className="h-auto w-full object-cover"
-								height={600}
-								priority
-								src="/healthcare_hero_1778827758056.png"
-								width={700}
-							/>
+					{/* Bottom Layer: Info & Buttons */}
+					<div className="relative z-20 flex w-full flex-col items-end justify-between gap-4 lg:flex-row">
+						{/* Left Info Text */}
+						<div className="max-w-xs text-left">
+							<p className="font-bold text-[9px] text-white uppercase leading-relaxed tracking-widest opacity-80 lg:text-[10px]">
+								If you are looking for a creative and easy way to build a
+								website. WOW! is the perfect solution.
+							</p>
+						</div>
+
+						{/* Right Action Buttons */}
+						<div className="flex items-center gap-2">
+							<Button className="h-14 rounded-full bg-secondary px-8 font-black text-base text-primary shadow-black/10 shadow-xl transition-all hover:bg-secondary/90">
+								Book Consultation
+							</Button>
+							<div className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-secondary text-primary shadow-black/10 shadow-xl transition-transform hover:scale-105">
+								<ArrowRight className="h-6 w-6" />
+							</div>
 						</div>
 					</div>
+				</div>
+
+				{/* Doctor Image - Anchored to the very bottom of the banner */}
+				<div className="pointer-events-none absolute bottom-0 left-1/2 z-10 h-[300px] w-full max-w-[340px] -translate-x-1/2 lg:h-[500px] lg:max-w-[500px]">
+					<Image
+						alt="Doctor"
+						className="object-contain object-bottom"
+						fill
+						priority
+						src="/hero.svg"
+					/>
 				</div>
 			</div>
 		</section>

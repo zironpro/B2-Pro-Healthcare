@@ -1,4 +1,6 @@
-import { Quote, Star } from "lucide-react";
+import Image from "next/image";
+
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -6,50 +8,80 @@ import { testimonials } from "@/lib/content";
 
 export function Testimonials() {
 	return (
-		<section className="bg-slate-50 py-24">
+		<section className="relative bg-white py-24">
 			<div className="mx-auto max-w-400 px-6">
-				<div className="mb-16 space-y-4 text-center">
-					<h2 className="font-bold text-secondary text-sm uppercase tracking-widest">
-						Testimonials
+				<div className="mb-20 space-y-2 text-center">
+					<h2 className="font-bold text-5xl text-slate-900 tracking-tight lg:text-6xl">
+						Patients Testimonial
 					</h2>
-					<p className="font-bold text-4xl text-slate-900 lg:text-5xl">
-						What Our Patients Say
+					<p className="font-medium text-lg text-slate-400">
+						Let's see what our happy patients says
 					</p>
 				</div>
 
-				<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-					{testimonials.map((testimonial) => (
-						<Card
-							className="relative overflow-hidden rounded-[2.5rem] border-none bg-white p-10 shadow-slate-200/50 shadow-xl"
-							key={testimonial.id}
-						>
-							<Quote className="absolute -top-6 -right-6 z-0 h-32 w-32 text-slate-50 opacity-50" />
-							<CardContent className="relative z-10 space-y-6 p-0">
-								<div className="flex gap-1">
-									{[...Array(testimonial.rating)].map((_, i) => (
-										<Star
-											className="h-5 w-5 fill-yellow-400 text-yellow-400"
-											key={`${testimonial.id}-star-${Number(i)}`}
-										/>
-									))}
-								</div>
-								<p className="font-medium text-slate-700 text-xl italic leading-relaxed">
-									"{testimonial.content}"
-								</p>
-								<div className="flex items-center gap-4">
-									<div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">
-										{testimonial.name.charAt(0)}
+				<div className="group relative">
+					{/* Carousel Arrows */}
+					<div className="absolute top-1/2 -left-4 z-10 -translate-y-1/2">
+						<button className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/30 transition-transform hover:scale-110">
+							<ChevronLeft className="h-6 w-6" />
+						</button>
+					</div>
+					<div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
+						<button className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/30 transition-transform hover:scale-110">
+							<ChevronRight className="h-6 w-6" />
+						</button>
+					</div>
+
+					{/* Testimonials Grid */}
+					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+						{testimonials.map((testimonial) => (
+							<Card
+								className="rounded-3xl border-none bg-white p-10 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] transition-all hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]"
+								key={testimonial.id}
+							>
+								<CardContent className="flex flex-col items-center space-y-4 p-0 text-center">
+									<div className="flex w-full items-center gap-4 text-left">
+										{/* Avatar with Crescent */}
+										<div className="relative h-20 w-20 shrink-0">
+											<div className="absolute top-0 -left-2 h-20 w-10 rounded-l-full bg-primary opacity-20" />
+											<div className="absolute top-0 -left-1 h-20 w-10 rounded-l-full bg-primary" />
+											<div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-white shadow-sm">
+												<Image
+													alt={testimonial.name}
+													className="object-cover"
+													fill
+													src={testimonial.image || "/friendly-doctor.webp"}
+												/>
+											</div>
+										</div>
+
+										<div className="space-y-1">
+											<h4 className="font-bold text-slate-900 text-xl">
+												{testimonial.name}
+											</h4>
+											<p className="font-medium text-slate-400 text-xs">
+												{testimonial.role}
+											</p>
+											<div className="flex gap-0.5">
+												{["star-1", "star-2", "star-3", "star-4", "star-5"].map(
+													(starKey) => (
+														<Star
+															className="h-3 w-3 fill-primary text-primary"
+															key={`${testimonial.id}-${starKey}`}
+														/>
+													)
+												)}
+											</div>
+										</div>
 									</div>
-									<div>
-										<h4 className="font-bold text-slate-900">
-											{testimonial.name}
-										</h4>
-										<p className="text-slate-500 text-sm">{testimonial.role}</p>
-									</div>
-								</div>
-							</CardContent>
-						</Card>
-					))}
+
+									<p className="pt-2 font-medium text-slate-500 text-sm leading-relaxed">
+										{testimonial.content}
+									</p>
+								</CardContent>
+							</Card>
+						))}
+					</div>
 				</div>
 			</div>
 		</section>
