@@ -59,8 +59,8 @@ export function DoctorsView() {
 	return (
 		<main className="flex min-h-screen flex-col bg-white">
 			{/* Immersive Page Header */}
-			<section className="relative w-full bg-white px-4 pt-28 pb-8 lg:pt-32 lg:pb-12">
-				<div className="relative mx-auto min-h-[300px] max-w-[1600px] overflow-hidden rounded-[4rem] bg-slate-900 lg:min-h-[300px]">
+			<section className="relative w-full bg-white px-4 pt-28 pb-4 lg:pt-32 lg:pb-6">
+				<div className="relative mx-auto min-h-[250px] max-w-[1600px] overflow-hidden rounded-[4rem] bg-slate-900 lg:min-h-[300px]">
 					<Image
 						alt="Medical team background"
 						className="object-cover opacity-60 mix-blend-overlay"
@@ -70,17 +70,17 @@ export function DoctorsView() {
 					/>
 					<div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent" />
 
-					<div className="relative z-10 flex h-full flex-col justify-center px-8 py-12 lg:px-20 lg:py-20">
-						<div className="max-w-3xl space-y-6">
+					<div className="relative z-10 flex h-full flex-col justify-center px-8 py-8 lg:px-20 lg:py-12">
+						<div className="max-w-3xl space-y-4">
 							<div className="inline-flex items-center gap-2 rounded-full bg-secondary/20 px-4 py-2 font-bold text-secondary text-sm backdrop-blur-md">
 								<Award className="h-4 w-4" />
 								<span>Top Rated Specialists</span>
 							</div>
-							<h1 className="font-black text-5xl text-white leading-tight tracking-tight lg:text-8xl">
+							<h1 className="font-black text-5xl text-white leading-tight tracking-tight lg:text-7xl">
 								Meet Our <br />
 								<span className="text-secondary">Specialist Doctors</span>
 							</h1>
-							<p className="max-w-xl font-medium text-lg text-slate-300 lg:text-xl">
+							<p className="max-w-xl font-medium text-lg text-slate-300">
 								Our team consists of world-class medical professionals dedicated
 								to providing exceptional care and personalized treatment for
 								every patient.

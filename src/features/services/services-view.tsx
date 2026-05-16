@@ -31,8 +31,8 @@ export function ServicesView() {
 	return (
 		<main className="flex min-h-screen flex-col bg-white">
 			{/* Immersive Page Header */}
-			<section className="relative w-full bg-white px-4 pt-28 pb-12 lg:pt-32 lg:pb-20">
-				<div className="relative mx-auto min-h-[400px] max-w-[1600px] overflow-hidden rounded-[4rem] bg-slate-900 lg:min-h-[500px]">
+			<section className="relative w-full bg-white px-4 pt-28 pb-6 lg:pt-32 lg:pb-8">
+				<div className="relative mx-auto min-h-[250px] max-w-[1600px] overflow-hidden rounded-[4rem] bg-slate-900 lg:min-h-[350px]">
 					{/* Background Image with Overlay */}
 					<Image
 						alt="Medical background"
@@ -44,17 +44,17 @@ export function ServicesView() {
 					<div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent" />
 
 					{/* Content */}
-					<div className="relative z-10 flex h-full flex-col justify-center px-8 py-20 lg:px-20 lg:py-32">
-						<div className="max-w-3xl space-y-8">
+					<div className="relative z-10 flex h-full flex-col justify-center px-8 py-10 lg:px-20 lg:py-16">
+						<div className="max-w-3xl space-y-4">
 							<div className="inline-flex items-center gap-2 rounded-full bg-primary/20 px-4 py-2 font-bold text-primary text-sm backdrop-blur-md">
 								<Plus className="h-4 w-4" />
 								<span>Excellence in Care</span>
 							</div>
-							<h1 className="font-black text-5xl text-white leading-tight tracking-tight lg:text-8xl">
+							<h1 className="font-black text-5xl text-white leading-tight tracking-tight lg:text-7xl">
 								Our Medical <br />
 								<span className="text-secondary">Specialties</span>
 							</h1>
-							<p className="max-w-xl font-medium text-lg text-slate-300 lg:text-xl">
+							<p className="max-w-xl font-medium text-lg text-slate-300">
 								Combining state-of-the-art technology with compassionate care to
 								provide you with the best healthcare experience.
 							</p>
@@ -64,7 +64,7 @@ export function ServicesView() {
 								</Button>
 								<div className="flex items-center gap-3 rounded-full bg-white/10 px-6 py-3 font-bold text-white backdrop-blur-md">
 									<div className="h-2 w-2 animate-pulse rounded-full bg-secondary" />
-									24/7 Emergency Support
+									24/7 Emergency
 								</div>
 							</div>
 						</div>
