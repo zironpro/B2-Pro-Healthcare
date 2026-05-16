@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { doctors } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 export function Doctors() {
 	return (
@@ -24,15 +25,19 @@ export function Doctors() {
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 					{doctors.map((doctor) => (
 						<Card
-							className="group overflow-hidden rounded-[2.5rem] border-none bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
+							className="group overflow-hidden rounded-[2.5rem] border-none bg-white p-8 shadow-sm transition-all duration-300"
 							key={doctor.id}
 						>
 							<CardContent className="flex flex-col items-center space-y-6 p-0">
-								<div className="relative h-64 w-full overflow-hidden rounded-3xl bg-primary/10 transition-colors group-hover:bg-primary/20">
-									<div className="absolute inset-x-0 top-12 bottom-0 mx-auto h-full w-4/5 rounded-t-full bg-primary" />
+								<div className="relative h-64 w-full overflow-hidden rounded-3xl bg-primary/10">
+									<div className="absolute inset-x-0 top-12 bottom-0 mx-auto h-full w-4/5" />
 									<Image
 										alt={doctor.name}
-										className="relative z-10 object-contain pt-4"
+										className={cn(
+											"relative z-10 object-contain pt-4",
+											(doctor.id === 2 || doctor.id === 3) &&
+												"translate-y-2 scale-[1.3]"
+										)}
 										fill
 										src={doctor.image}
 									/>

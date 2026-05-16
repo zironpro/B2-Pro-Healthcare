@@ -1,6 +1,7 @@
-import type * as React from "react";
+import * as React from "react";
 
 import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
 
 import { cn } from "@/lib/utils";
 
@@ -23,8 +24,8 @@ const buttonVariants = cva(
 			size: {
 				default:
 					"h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-				xs: "h-6 gap-1 in-data-[slot=button-group]:rounded-lg rounded-[min(var(--radius-md),10px)] px-2 text-sm has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-				sm: "h-7 gap-1 in-data-[slot=button-group]:rounded-lg rounded-[min(var(--radius-md),12px)] px-2.5 text-sm has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+				xs: "h-6 gap-1 in-data-[slot=button-group]:rounded-lg rounded-[min(var(--radius-md),10px)] px-2 text-xs has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+				sm: "h-7 gap-1 in-data-[slot=button-group]:rounded-lg rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
 				lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
 				icon: "size-8",
 				"icon-xs":
@@ -45,30 +46,16 @@ function Button({
 	className,
 	variant = "default",
 	size = "default",
-	render,
+	asChild = false,
 	...props
 }: React.ComponentProps<"button"> &
 	VariantProps<typeof buttonVariants> & {
-		render?: (
-			props: React.ComponentProps<"button"> & {
-				"data-slot": string;
-				"data-variant": string | null | undefined;
-				"data-size": string | null | undefined;
-			}
-		) => React.ReactNode;
+		asChild?: boolean;
 	}) {
-	if (render) {
-		return render({
-			...props,
-			className: cn(buttonVariants({ variant, size, className })),
-			"data-slot": "button",
-			"data-variant": variant,
-			"data-size": size,
-		});
-	}
+	const Comp = asChild ? Slot.Root : "button";
 
 	return (
-		<button
+		<Comp
 			className={cn(buttonVariants({ variant, size, className }))}
 			data-size={size}
 			data-slot="button"
