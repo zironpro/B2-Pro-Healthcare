@@ -1,0 +1,179 @@
+# Cursor Rules — B2 Pro Healthcare
+
+**Multilingual** marketing site for a healthcare brand (English + Arabic). Next.js App Router, RSC by default. Every user-facing string must support both locales.
+
+## Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **UI:** React 19, Shadcn UI (`radix-nova`), Radix primitives, Tailwind CSS 4
+- **Icons:** Lucide React
+- **Tooling:** TypeScript (strict), Biome (lint + format), pnpm
+- **Path alias:** `@/*` → `src/*`
+
+## Project structure
+
+```
+src/
+├── app/                      # Routes only — thin pages, layout, globals.css
+├── features/                 # Feature modules (views + section components)
+│   └── home/
+│       ├── home-view.tsx     # Composes section components
+│       └── components/       # hero.tsx, services.tsx, etc.
+├── components/
+│   ├── ui/                   # Shadcn primitives (button, card, …)
+│   └── layout/               # Navbar, Footer
+├── context/                  # I18nProvider and client context
+└── lib/
+    ├── content.ts            # Static data — locale-keyed copy when translated
+    ├── i18n/                 # Dictionaries / helpers (add as translations grow)
+    └── utils.ts              # cn() helper
+```
+
+### Conventions
+
+- **App routes** import a feature view; avoid large page files.
+- **Feature views** live in `src/features/<feature>/<feature>-view.tsx` and compose section components from `components/`.
+- **Section components** use kebab-case filenames (`hero.tsx`, `doctors.tsx`) and PascalCase exports (`Hero`, `Doctors`).
+- **Static data** belongs in `src/lib/content.ts` or locale-aware modules under `src/lib/i18n/`.
+- **Reusable UI** goes in `src/components/ui/`; add via Shadcn CLI when needed.
+
+## Multilingual (i18n)
+
+**Locales:** `en` (LTR, default) · `ar` (RTL)
+
+| Piece | Location |
+|-------|----------|
+| Provider | `I18nProvider` in root `layout.tsx` |
+| Hook | `useI18n()` → `{ locale, setLocale, isRTL }` — **client components only** |
+| Switcher | Navbar toggles `en` ↔ `ar` |
+
+**Rules when adding or editing UI copy:**
+
+1. Never ship English-only strings in shared UI — provide **both** `en` and `ar` (dictionaries, `Record<Locale, string>`, or nested objects keyed by locale).
+2. Read copy via `locale` from `useI18n()` (client) or pass `locale` as a prop from a client wrapper — do not hardcode visible text in JSX.
+3. **RTL:** Use `isRTL` for layout tweaks; prefer logical Tailwind (`ms-`, `me-`, `ps-`, `pe-`, `start`, `end`) over `ml-`/`mr-`. Arabic uses `font-arabic` (set on provider wrapper).
+4. `document.documentElement.dir` and `lang` are updated by the provider — do not set them elsewhere.
+5. Images/icons: mirror or flip only when direction matters; keep medical imagery culturally neutral.
+6. Metadata (`title`, `description`) should eventually be locale-aware per route.
+
+**Content shape (preferred):**
+
+```typescript
+type Locale = "en" | "ar";
+
+export const heroCopy: Record<Locale, { title: string; subtitle: string }> = {
+  en: { title: "…", subtitle: "…" },
+  ar: { title: "…", subtitle: "…" },
+};
+```
+
+## Git commits
+
+**Format:** `<type>(<scope>): <subject>`
+
+| Rule | Detail |
+|------|--------|
+| Subject | Imperative, lowercase, **no period**, ≤72 chars |
+| Scope | Short area: `home`, `hero`, `i18n`, `navbar`, `ui` |
+| Body | Only when context is non-obvious (breaking change, migration) |
+
+**Types:** `feat` · `fix` · `docs` · `style` · `refactor` · `perf` · `test` · `chore` · `ci` · `revert`
+
+**Examples:**
+
+```
+feat(i18n): add ar translations for services section
+fix(navbar): align language toggle in rtl
+chore(deps): bump next to 16.2.6
+```
+
+**Avoid:** vague subjects (`update stuff`, `wip`), past tense (`added feature`), or commits that mix unrelated changes.
+
+## Naming
+
+| Kind | Convention | Example |
+|------|------------|---------|
+| Directories / files | kebab-case | `home-view.tsx`, `i18n-context.tsx` |
+| React components | PascalCase | `HomePageView`, `Services` |
+| Functions / variables | camelCase | `useI18n`, `getDoctorById` |
+| Constants | UPPER_SNAKE_CASE | `MAX_TESTIMONIALS` |
+| URL slugs | kebab-case | `/about`, `/book-appointment` |
+
+Prefer **named exports** for components.
+
+## Code style
+
+### TypeScript
+
+- Prefer `interface` for object shapes; avoid `enum` — use `as const` objects or union types.
+- No `any`; Biome flags unused imports and variables.
+- Functional components only; no classes.
+
+### React & Next.js
+
+- Default to **Server Components**; add `"use client"` only for hooks, browser APIs, or interactivity.
+- Use `next/image` for photos with `width`, `height`, and meaningful `alt`.
+- Follow [Next.js docs](https://nextjs.org/docs) for routing, rendering, and data fetching.
+- Prefer **server actions** over route handlers when adding mutations later — none exist yet.
+
+### Formatting (Biome)
+
+- **Indent:** tabs
+- **Quotes:** double
+- **Semicolons:** always
+- Run `pnpm lint` / `pnpm format` — do not hand-format against Biome.
+- Import order is enforced by Biome (`react` → `next` → packages → `@/` aliases → relative).
+
+### Styling
+
+- Tailwind utility-first, mobile-first.
+- Theme tokens via CSS variables in `src/app/globals.css`.
+- Use `cn()` from `@/lib/utils` for conditional classes.
+- Use Shadcn components from `@/components/ui/*` before bespoke markup.
+
+### Component file layout
+
+```typescript
+// 1. Imports (Biome-sorted)
+// 2. Types / interfaces
+// 3. Exported component
+// 4. Local subcomponents (if small and private)
+```
+
+## UI specifics
+
+- **Button + icons:** Do not set icon `size` or margin on Lucide icons inside `Button` — sizing is handled by the Shadcn Button styles (`[&_svg]:size-4`, etc.).
+- **Accessibility:** Semantic HTML, alt text (translated per locale), keyboard focus, WCAG 2.1 AA.
+- **RTL:** Verify every new section in Arabic — spacing, icons, and alignment must not assume LTR-only.
+
+## Performance
+
+- RSC by default; dynamic `import()` for heavy client-only blocks.
+- `priority` on above-the-fold hero images only.
+- Minimize `useEffect`, `useState`, and `"use client"` surface area.
+- Wrap async client boundaries in `Suspense` when introduced.
+
+## What this project does *not* include (yet)
+
+Do not assume or scaffold unless asked:
+
+- Authentication (Better Auth), databases, or API routes
+- `nuqs`, React Query, SWR, Docker
+- E-commerce / “deals” domain models
+
+## Agent workflow
+
+- Search the codebase and read surrounding files before editing.
+- Match existing patterns (feature folders, locale-aware copy, naming).
+- New UI text → both `en` and `ar`; check RTL in Arabic before finishing.
+- Keep changes scoped to the task — no drive-by refactors.
+- **Do not** run `tsc` / type-check in the terminal or create throwaway test files unless the user asks.
+- Only create git commits when the user explicitly requests them.
+
+## Expert defaults
+
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI, and Tailwind.
+
+- Write concise, declarative TypeScript; use the `function` keyword for pure helpers.
+- Favor readability and maintainability over clever abstractions.
+- Limit `"use client"` to small interactive islands — not for static marketing sections.

@@ -1,9 +1,5 @@
-import HomePage from "./Home/page";
+import { HomePageView } from "@/features/home/home-view";
 
-export default function Home() {
-  return (
-    <main>
-      <HomePage />
-    </main>
-  );
+export default function Homepage() {
+	return <HomePageView />;
 }
