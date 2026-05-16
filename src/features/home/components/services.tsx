@@ -48,14 +48,14 @@ export function Services() {
 									>
 										{IconComponent && <IconComponent className="h-10 w-10" />}
 									</div>
-									<h3
+									<p
 										className={cn(
 											"font-bold text-xl leading-tight transition-colors duration-300",
 											"text-slate-900 group-hover:text-white"
 										)}
 									>
 										{service.title}
-									</h3>
+									</p>
 								</CardContent>
 							</Card>
 						);

@@ -9,11 +9,19 @@ export function Hero() {
 		<section className="relative w-full bg-white px-4 pt-28 pb-12 lg:pt-36 lg:pb-20">
 			{/* Main Banner Container */}
 			<div className="relative mx-auto min-h-[350px] max-w-[1600px] overflow-hidden rounded-[3rem] bg-primary lg:min-h-[520px]">
+				{/* Visually Hidden H1 for SEO */}
+				<h1 className="sr-only">
+					B2 Pro Healthcare - Leading Medical & Specialist Services
+				</h1>
+
 				{/* Background Decorative Text */}
-				<div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden">
-					<h1 className="-translate-y-2 transform font-black text-[10rem] text-accent leading-none tracking-tighter opacity-20 lg:text-[18rem]">
+				<div
+					aria-hidden="true"
+					className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden"
+				>
+					<span className="-translate-y-2 transform font-black text-[10rem] text-accent leading-none tracking-tighter opacity-20 lg:text-[18rem]">
 						Healthcare
-					</h1>
+					</span>
 				</div>
 
 				{/* Foreground Content Wrapper */}

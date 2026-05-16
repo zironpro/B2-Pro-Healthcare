@@ -43,9 +43,9 @@ export function Doctors() {
 								</div>
 
 								<div className="space-y-2 text-center">
-									<h3 className="font-bold text-2xl text-slate-900">
+									<p className="font-bold text-2xl text-slate-900">
 										{doctor.name}
-									</h3>
+									</p>
 									<p className="font-medium text-slate-500 text-sm">
 										{doctor.specialty}
 									</p>
@@ -65,10 +65,7 @@ export function Doctors() {
 									</span>
 								</div>
 
-								<Button
-									className="w-full rounded-xl border-primary text-primary hover:bg-primary hover:text-white"
-									variant="outline"
-								>
+								<Button className="h-14 w-full rounded-xl bg-secondary font-bold text-primary transition-all hover:bg-primary hover:text-white">
 									Book an Appointment
 								</Button>
 							</CardContent>

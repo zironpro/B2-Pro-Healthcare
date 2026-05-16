@@ -56,9 +56,9 @@ export function Testimonials() {
 										</div>
 
 										<div className="space-y-1">
-											<h4 className="font-bold text-slate-900 text-xl">
+											<p className="font-bold text-slate-900 text-xl">
 												{testimonial.name}
-											</h4>
+											</p>
 											<p className="font-medium text-slate-400 text-xs">
 												{testimonial.role}
 											</p>
