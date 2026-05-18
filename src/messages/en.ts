@@ -145,4 +145,40 @@ export default {
 			content: "Thanks for all the services, no doubt it is the best hospital.",
 		},
 	},
+	Services: {
+		heroTag: "Excellence in Care",
+		heroTitle1: "Our Medical",
+		heroTitle2: "Specialties",
+		heroDesc:
+			"Combining state-of-the-art technology with compassionate care to provide you with the best healthcare experience.",
+		explore: "Explore Services",
+		emergency247: "24/7 Emergency",
+		stats: {
+			specialists: "Specialists",
+			patients: "Happy Patients",
+			years: "Years Exp",
+		},
+		gridTitle1: "Specialized Care for",
+		gridTitle2: "Every Patient",
+		gridDesc:
+			"Browse our comprehensive range of services designed for your health.",
+		learnMore: "Learn More",
+		excellenceTitle1: "Experience",
+		excellenceTitle2: "Excellence",
+		excellenceTitle3: "In Every Detail.",
+		excellenceDesc:
+			"We are dedicated to providing the best medical services through innovation and compassion. Our facility is equipped with the latest technology to ensure accurate diagnosis and effective treatment.",
+		excellenceStats: {
+			emergency: "Emergency",
+			patients: "Happy Patients",
+			years: "Years Exp.",
+			success: "Success Rate",
+		},
+		features: [
+			"Modern Infrastructure & Smart Facilities",
+			"Experienced & Caring Medical Staff",
+			"Advanced Diagnostic & Surgical Equipment",
+			"Patient-Centric Approach & Personalized Care",
+		],
+	},
 } as const;
