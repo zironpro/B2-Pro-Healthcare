@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+import { Link } from "@/i18n/routing";
 import { doctors } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -25,7 +26,7 @@ export function Doctors() {
 					</p>
 				</div>
 
-				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
 					{doctors.map((doctor) => (
 						<Card
 							className="group overflow-hidden rounded-[2.5rem] border-none bg-white p-8 shadow-sm transition-all duration-300"
@@ -77,18 +78,28 @@ export function Doctors() {
 									</span>
 								</div>
 
-								<Button className="h-14 w-full rounded-xl bg-secondary font-bold text-primary transition-all hover:bg-primary hover:text-white">
-									{t("book")}
-								</Button>
+								<Button
+									className="h-14 w-full rounded-xl bg-secondary font-bold text-primary transition-all hover:bg-primary hover:text-white"
+									render={({ className }) => (
+										<Link className={className} href={`/doctors/${doctor.id}`}>
+											{t("book")}
+										</Link>
+									)}
+								/>
 							</CardContent>
 						</Card>
 					))}
 				</div>
 
 				<div className="mt-16 flex justify-center">
-					<Button className="h-12 rounded-full bg-primary px-10 font-bold shadow-lg shadow-primary/20">
-						{t("seeMore")}
-					</Button>
+					<Button
+						className="h-12 rounded-full bg-primary px-10 font-bold shadow-lg shadow-primary/20"
+						render={({ className }) => (
+							<Link className={className} href="/doctors">
+								{t("seeMore")}
+							</Link>
+						)}
+					/>
 				</div>
 			</div>
 		</section>

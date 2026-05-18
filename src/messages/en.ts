@@ -156,33 +156,223 @@ export default {
 		news6Desc:
 			"Register today for our upcoming annual workshop focusing on diversity in primary care.",
 	},
+	NewsDetails: {
+		readTime: "5 min read",
+		backToNews: "Back to News & Events",
+		aboutArticle: "About this Article",
+		keyHighlights: "Key Highlights",
+		sidebarTitle: "Share this Article",
+		sidebarDesc:
+			"Spread the knowledge with your family and colleagues on social channels.",
+		shareBtn: "Share Article",
+		"card-1": {
+			about:
+				"This special announcement highlights our brand new cardiovascular clinic. Built with multi-million dollar investments, it offers our community access to world-renowned medical pioneers and fully smart recovery suites.",
+			highlights: [
+				"Equipped with the world's most advanced imaging software.",
+				"Directed by senior global pioneers in cardiology care.",
+				"Includes 24/7 dedicated critical monitoring rooms.",
+				"Implements patient-first digital telemetry support systems.",
+			],
+		},
+		"card-2": {
+			about:
+				"Join B2 Pro Healthcare this upcoming weekend as we set up our primary health diagnostic camp in the downtown commons. Our staff will provide complimentary blood screens, wellness consults, and dietary analysis.",
+			highlights: [
+				"Completely free basic checkups and diagnostic screening.",
+				"On-site pediatricians and general care consultants.",
+				"Free dietary and fitness guidance handouts.",
+				"Referrals for advanced lab work and specialists as needed.",
+			],
+		},
+		"card-3": {
+			about:
+				"We are proud to introduce robotic-assisted precision surgery to our operating suites. This state-of-the-art advancement allows our expert surgeons to perform complex procedures with microscopic accuracy.",
+			highlights: [
+				"Significantly reduces surgical trauma and healing downtime.",
+				"Delivers exceptional precision for minimally invasive treatments.",
+				"Directed by highly certified robotic surgical specialists.",
+				"Increases long-term procedural success and safety metrics.",
+			],
+		},
+		"card-4": {
+			about:
+				"Our clinical team has partnered with international universities to launch a combined global research venture. We will focus on innovative therapies and gene-mapping solutions for rare conditions.",
+			highlights: [
+				"Collaborates directly with top-tier global medical research labs.",
+				"Aims to pioneer next-generation therapeutic drug targets.",
+				"Creates valuable academic residency internships.",
+				"Ensures B2 Pro is at the forefront of medical discoveries.",
+			],
+		},
+		"card-5": {
+			about:
+				"To protect our community during critical windows, B2 Pro has upgraded our trauma response suites. Every dispatch fleet now has real-time diagnostic systems that beam metrics to local emergency rooms.",
+			highlights: [
+				"Reduces hospital arrival triage windows by 35%.",
+				"Equipped with wireless advanced vital sign telemetry.",
+				"Staffed with highly certified critical care paramedics.",
+				"Maintains 24/7 hot-line communication to surgical wards.",
+			],
+		},
+		"card-6": {
+			about:
+				"Register today for our annual medical seminar, celebrating cultural diversity and inclusion within primary healthcare. Learn from international speakers as they share patient engagement strategies.",
+			highlights: [
+				"Covers key diversity strategies in primary healthcare delivery.",
+				"Features keynote panels from international healthcare leaders.",
+				"Provides valuable professional continuous education credits.",
+				"Opens interactive discussions on community wellness access.",
+			],
+		},
+	},
 	ContentServices: {
 		"general-care": {
 			title: "General Care",
 			description:
 				"Comprehensive check-ups and primary health management for you and your family.",
+			about:
+				"Our general care department focuses on preventative medicine, lifestyle counsel, and comprehensive wellness strategies. We offer personalized clinical check-ups to detect and manage conditions early, protecting your long-term health.",
+			benefits: [
+				"Routine physicals & advanced screenings.",
+				"Comprehensive vaccination & immunization.",
+				"Chronic disease management protocols.",
+				"Personalized family clinical records.",
+			],
+			procedures: [
+				"Annual Diagnostic Physicals",
+				"Immunization & Travel Health",
+				"Preventative Care Consulting",
+				"Blood Pressure & Diabetes Checks",
+			],
 		},
 		cardiology: {
 			title: "Cardiology",
 			description:
 				"Expert care for heart-related conditions with advanced diagnostic technology.",
+			about:
+				"B2 Pro Cardiology department is equipped with class-leading telemetry, diagnostic software, and microscopic surgery systems. Our senior surgeons deliver precise interventions for complicated congenital and degenerative heart conditions.",
+			benefits: [
+				"Class-leading non-invasive telemetry diagnostics.",
+				"Advanced precision minimally-invasive operations.",
+				"24/7 cardiac intensive monitoring suites.",
+				"Patient rehabilitation & recovery training.",
+			],
+			procedures: [
+				"Electrocardiograms (ECG / EKG)",
+				"Cardiac Telemetry Monitoring",
+				"Minimally Invasive Balloon Angioplasty",
+				"Congenital Valve Repairs & Screenings",
+			],
 		},
 		pediatrics: {
 			title: "Pediatrics",
 			description:
 				"Specialized healthcare for children from infancy through adolescence.",
+			about:
+				"Redefining clinical care for kids, our pediatric specialists prioritize kid-friendly diagnostic styles, compassionate listening, and child milestones tracking. From prenatal guidance through adolescent wellness, B2 Pro is here.",
+			benefits: [
+				"Kid-friendly clinical and treatment environments.",
+				"Milestones tracking & cognitive screenings.",
+				"Comprehensive safe vaccination plans.",
+				"24/7 pediatric emergency coverage.",
+			],
+			procedures: [
+				"Child Wellcheck Diagnostics",
+				"Immunization & Immunotherapy Programs",
+				"Childhood Allergy Assessment Clinics",
+				"Developmental Progress Evaluations",
+			],
 		},
 		diagnostics: {
 			title: "Diagnostics",
 			description:
 				"State-of-the-art testing facilities for accurate and timely medical results.",
+			about:
+				"B2 Pro Diagnostics center boasts state-of-the-art lab automation and advanced imaging suites. We guarantee high-precision results within minimal turnaround times to help doctors execute correct therapeutic decisions.",
+			benefits: [
+				"High-accuracy laboratory automation tech.",
+				"Minimal diagnostic turnaround times.",
+				"State-of-the-art MRI & High-speed CT.",
+				"Direct secure patient portal delivery.",
+			],
+			procedures: [
+				"Magnetic Resonance Imaging (MRI)",
+				"Computed Tomography (CT) scans",
+				"Full Biochemical Panel Screening",
+				"Ultrasound and Digital X-ray suites",
+			],
 		},
 	},
 	ContentDoctors: {
-		"1": { name: "Dr. Sara Khan", specialty: "Chief Cardiologist" },
-		"2": { name: "Dr. John Doe", specialty: "General Physician" },
-		"3": { name: "Dr. Usman Ahmed", specialty: "Pediatric Specialist" },
-		"4": { name: "Dr. Yusuf Qadri", specialty: "Neurologist" },
+		"1": {
+			name: "Dr. Sara Khan",
+			specialty: "Chief Cardiologist",
+			about:
+				"Dr. Sara Khan is a highly recognized global pioneer in cardiovascular interventions. With over 15 years of board-certified clinical practice at top-tier healthcare institutions, she specializes in complicated congenital repairs and robotic-assisted bypass operations.",
+			achievements: [
+				"Global Cardiovascular Excellence Award (2024)",
+				"Board Certified in Cardiothoracic Interventions",
+				"Author of over 45 academic cardiology papers",
+			],
+			skills: [
+				"Robotic-assisted cardiac repair",
+				"Complex angioplasty procedures",
+				"Heart transplant post-care support",
+				"Congenital valve reconstruction",
+			],
+		},
+		"2": {
+			name: "Dr. John Doe",
+			specialty: "General Physician",
+			about:
+				"Dr. John Doe provides comprehensive primary diagnostic care and chronic condition management. He prioritizes preventative healthcare and lifestyle consults to empower patients to live healthy, balanced lives.",
+			achievements: [
+				"Board Certified in Preventative Family Medicine",
+				"Excellence in Community Care citation (2023)",
+				"Continuous family healthcare director for 8 years",
+			],
+			skills: [
+				"Routine clinical checkup diagnostics",
+				"Chronic wellness and lifestyle consulting",
+				"Immunotherapy and preventative vaccinations",
+				"Geriatric health management",
+			],
+		},
+		"3": {
+			name: "Dr. Usman Ahmed",
+			specialty: "Pediatric Specialist",
+			about:
+				"Dr. Usman Ahmed has built an exceptional reputation for kid-friendly diagnostic care and milestone tracking. He creates warm, compassionate spaces to support childhood development, pediatric allergy assessments, and recovery.",
+			achievements: [
+				"Board Certified in Pediatrics & Infant Health",
+				"Pediatric Academic Residency Honor Graduate",
+				"Pioneered localized childhood immunization campaigns",
+			],
+			skills: [
+				"Comprehensive pediatric physical assessments",
+				"Developmental milestone evaluations",
+				"Safe pediatric immunization programs",
+				"Childhood allergy diagnostic screening",
+			],
+		},
+		"4": {
+			name: "Dr. Yusuf Qadri",
+			specialty: "Neurologist",
+			about:
+				"Dr. Yusuf Qadri is a distinguished Neurologist focusing on cognitive diagnostics, degenerative brain conditions, and neuromuscular rehabilitation. He utilizes precision EEG telemetry to formulate effective recovery plans.",
+			achievements: [
+				"Board Certified in Neurological Diagnostics",
+				"Neuro-rehabilitation Center Founder Award",
+				"Active researcher in innovative cognitive therapies",
+			],
+			skills: [
+				"Electroencephalogram (EEG) telemetry",
+				"Neuromuscular motor diagnostic tests",
+				"Migraine & cognitive chronic therapy",
+				"Stroke post-recovery rehabilitation",
+			],
+		},
 	},
 	ContentTestimonials: {
 		"1": {
@@ -236,6 +426,14 @@ export default {
 			"Advanced Diagnostic & Surgical Equipment",
 			"Patient-Centric Approach & Personalized Care",
 		],
+		backToServices: "Back to All Services",
+		aboutDept: "About the Department",
+		keyBenefits: "Key Benefits & Advantages",
+		primaryProcedures: "Primary Procedures & Tests",
+		sidebarTitle: "Book Appointment",
+		sidebarDesc:
+			"Schedule a priority consult with our leading department specialists today.",
+		scheduleBtn: "Schedule Consult",
 	},
 	Doctors: {
 		heroTag: "Top Rated Specialists",
@@ -299,6 +497,14 @@ export default {
 				desc: "Our specialists work together to ensure accurate diagnosis.",
 			},
 		],
+		backToDoctors: "Back to All Specialists",
+		aboutDoctor: "About the Specialist",
+		keyAchievements: "Credentials & Achievements",
+		primarySkills: "Clinical Specialties & Skills",
+		sidebarTitle: "Book Consultation",
+		sidebarDesc:
+			"Secure an active consult slot with this specialist doctor today.",
+		scheduleBtn: "Request Consult",
 	},
 	Careers: {
 		heroTag: "Join Our Team",

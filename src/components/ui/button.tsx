@@ -47,11 +47,29 @@ function Button({
 	variant = "default",
 	size = "default",
 	asChild = false,
+	render,
 	...props
 }: React.ComponentProps<"button"> &
 	VariantProps<typeof buttonVariants> & {
 		asChild?: boolean;
+		render?: (
+			props: React.ComponentProps<"button"> & {
+				"data-size"?: string | null;
+				"data-slot"?: string;
+				"data-variant"?: string | null;
+			}
+		) => React.ReactNode;
 	}) {
+	if (render) {
+		return render({
+			className: cn(buttonVariants({ variant, size, className })),
+			"data-size": size ?? undefined,
+			"data-slot": "button",
+			"data-variant": variant ?? undefined,
+			...props,
+		});
+	}
+
 	const Comp = asChild ? Slot.Root : "button";
 
 	return (

@@ -9,7 +9,10 @@ import { useTranslations } from "next-intl";
 
 import { Input } from "@/components/ui/input";
 
+import { Link } from "@/i18n/routing";
+
 import { CTA } from "../home/components/cta";
+import { NEWS_ITEMS } from "./data/data";
 
 export function NewsView() {
 	const t = useTranslations("News");
@@ -20,62 +23,8 @@ export function NewsView() {
 	);
 	const [searchQuery, setSearchQuery] = useState("");
 
-	const newsItems = [
-		{
-			id: "card-1",
-			image: "/medical-team.webp",
-			category: "News",
-			date: "Oct 15, 2026",
-			titleKey: "news1Title",
-			descKey: "news1Desc",
-		},
-		{
-			id: "card-2",
-			image: "/doctor-talking-patient.webp",
-			category: "Events",
-			date: "Oct 20, 2026",
-			titleKey: "news2Title",
-			descKey: "news2Desc",
-		},
-		{
-			id: "card-3",
-			image: "/surgeons-operating.webp",
-			category: "News",
-			date: "Oct 25, 2026",
-			titleKey: "news3Title",
-			descKey: "news3Desc",
-		},
-		{
-			id: "card-4",
-			image: "/diverse-group.webp",
-			category: "News",
-			date: "Nov 01, 2026",
-			titleKey: "news4Title",
-			descKey: "news4Desc",
-			useDirectNewsNamespace: true,
-		},
-		{
-			id: "card-5",
-			image: "/emergency.webp",
-			category: "News",
-			date: "Nov 05, 2026",
-			titleKey: "news5Title",
-			descKey: "news5Desc",
-			useDirectNewsNamespace: true,
-		},
-		{
-			id: "card-6",
-			image: "/multi-cultural.webp",
-			category: "Events",
-			date: "Nov 10, 2026",
-			titleKey: "news6Title",
-			descKey: "news6Desc",
-			useDirectNewsNamespace: true,
-		},
-	];
-
 	// Filter and search logic
-	const filteredItems = newsItems.filter((item) => {
+	const filteredItems = NEWS_ITEMS.filter((item) => {
 		const matchesCategory =
 			activeFilter === "All" || item.category === activeFilter;
 
@@ -217,10 +166,13 @@ export function NewsView() {
 											<p className="mb-6 line-clamp-3 font-medium text-slate-500 leading-relaxed">
 												{desc}
 											</p>
-											<button className="group/btn flex items-center gap-2 font-bold text-primary">
+											<Link
+												className="group/btn flex items-center gap-2 font-bold text-primary"
+												href={`/news/${item.id}`}
+											>
 												Read More{" "}
-												<ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-											</button>
+												<ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1 rtl:rotate-180" />
+											</Link>
 										</div>
 									</div>
 								);

@@ -31,10 +31,11 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { doctors } from "@/lib/content";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 import { CTA } from "../home/components/cta";
+import { DOCTORS } from "./data/data";
 
 export function DoctorsView() {
 	const t = useTranslations("Doctors");
@@ -45,7 +46,7 @@ export function DoctorsView() {
 
 	// Prepare autocomplete options (names and specialties)
 	const searchOptions = React.useMemo(() => {
-		const names = doctors.map((d) => {
+		const names = DOCTORS.map((d) => {
 			const name = tDoctors(`${d.id as 1 | 2 | 3 | 4}.name`);
 			return {
 				value: name.toLowerCase(),
@@ -55,7 +56,7 @@ export function DoctorsView() {
 		});
 		const specialties = Array.from(
 			new Set(
-				doctors.map((d) => tDoctors(`${d.id as 1 | 2 | 3 | 4}.specialty`))
+				DOCTORS.map((d) => tDoctors(`${d.id as 1 | 2 | 3 | 4}.specialty`))
 			)
 		).map((s) => ({
 			value: s.toLowerCase(),
@@ -132,19 +133,23 @@ export function DoctorsView() {
 
 					<div className="flex w-full items-center gap-4 lg:w-auto">
 						<Popover onOpenChange={setOpen} open={open}>
-							<PopoverTrigger asChild>
-								<Button
-									className="h-14 w-full gap-3 rounded-full bg-secondary px-8 font-black text-primary shadow-sm transition-all hover:bg-primary hover:text-white lg:w-auto"
-									variant="outline"
-								>
-									<Search className="h-5 w-5" />
-									<span>
-										{value
-											? searchOptions.find((opt) => opt.value === value)?.label
-											: t("search.placeholder")}
-									</span>
-								</Button>
-							</PopoverTrigger>
+							<PopoverTrigger
+								render={(props) => (
+									<Button
+										{...props}
+										className="h-14 w-full gap-3 rounded-full bg-secondary px-8 font-black text-primary shadow-sm transition-all hover:bg-primary hover:text-white lg:w-auto"
+										variant="outline"
+									>
+										<Search className="h-5 w-5" />
+										<span>
+											{value
+												? searchOptions.find((opt) => opt.value === value)
+														?.label
+												: t("search.placeholder")}
+										</span>
+									</Button>
+								)}
+							/>
 							<PopoverContent
 								align="center"
 								className="w-[--radix-popover-trigger-width] overflow-hidden rounded-[2.5rem] border-slate-100 p-0 shadow-2xl shadow-slate-300/50 backdrop-blur-xl"
@@ -298,12 +303,11 @@ export function DoctorsView() {
 			<section className="py-10">
 				<div className="mx-auto max-w-[1600px] px-6">
 					<div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						{doctors
-							.map((d) => ({
-								...d,
-								name: tDoctors(`${d.id as 1 | 2 | 3 | 4}.name`),
-								specialty: tDoctors(`${d.id as 1 | 2 | 3 | 4}.specialty`),
-							}))
+						{DOCTORS.map((d) => ({
+							...d,
+							name: tDoctors(`${d.id as 1 | 2 | 3 | 4}.name`),
+							specialty: tDoctors(`${d.id as 1 | 2 | 3 | 4}.specialty`),
+						}))
 							.filter(
 								(d) =>
 									!value ||
@@ -364,33 +368,41 @@ export function DoctorsView() {
 												</div>
 												<div className="h-8 w-px bg-slate-100" />
 												<div className="text-center">
-													<p className="font-black text-slate-900">98%</p>
+													<p className="font-black text-slate-900">
+														{doctor.successRate}
+													</p>
 													<p className="font-bold text-[10px] text-slate-400 uppercase tracking-tighter">
 														{t("grid.success")}
 													</p>
 												</div>
 											</div>
 
-											<Button className="h-14 w-full rounded-2xl bg-secondary font-bold text-primary shadow-sm transition-all hover:bg-primary hover:text-white">
-												{t("grid.bookConsultation")}
-											</Button>
+											<Button
+												className="h-14 w-full rounded-2xl bg-secondary font-bold text-primary shadow-sm transition-all hover:bg-primary hover:text-white"
+												render={({ className }) => (
+													<Link
+														className={className}
+														href={`/doctors/${doctor.id}`}
+													>
+														{t("grid.bookConsultation")}
+													</Link>
+												)}
+											/>
 										</div>
 									</CardContent>
 								</Card>
 							))}
 					</div>
-					{doctors
-						.map((d) => ({
-							...d,
-							name: tDoctors(`${d.id as 1 | 2 | 3 | 4}.name`),
-							specialty: tDoctors(`${d.id as 1 | 2 | 3 | 4}.specialty`),
-						}))
-						.filter(
-							(d) =>
-								!value ||
-								d.name.toLowerCase().includes(value) ||
-								d.specialty.toLowerCase().includes(value)
-						).length === 0 && (
+					{DOCTORS.map((d) => ({
+						...d,
+						name: tDoctors(`${d.id as 1 | 2 | 3 | 4}.name`),
+						specialty: tDoctors(`${d.id as 1 | 2 | 3 | 4}.specialty`),
+					})).filter(
+						(d) =>
+							!value ||
+							d.name.toLowerCase().includes(value) ||
+							d.specialty.toLowerCase().includes(value)
+					).length === 0 && (
 						<div className="flex flex-col items-center justify-center space-y-4 py-20 text-center">
 							<div className="flex h-20 w-20 items-center justify-center rounded-full bg-slate-50 text-slate-300">
 								<Search className="h-10 w-10" />

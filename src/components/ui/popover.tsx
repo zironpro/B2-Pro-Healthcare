@@ -13,8 +13,20 @@ function Popover({
 }
 
 function PopoverTrigger({
+	render,
 	...props
-}: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
+}: React.ComponentProps<typeof PopoverPrimitive.Trigger> & {
+	render?: (
+		props: React.ComponentProps<typeof PopoverPrimitive.Trigger>
+	) => React.ReactNode;
+}) {
+	if (render) {
+		return (
+			<PopoverPrimitive.Trigger asChild data-slot="popover-trigger" {...props}>
+				{render(props)}
+			</PopoverPrimitive.Trigger>
+		);
+	}
 	return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
 }
 

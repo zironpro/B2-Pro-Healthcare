@@ -89,10 +89,13 @@ export function NewsEvents() {
 								<p className="mb-6 line-clamp-3 font-medium text-slate-500">
 									{t(item.descKey as "news1Desc" | "news2Desc" | "news3Desc")}
 								</p>
-								<button className="group/btn flex items-center gap-2 font-bold text-primary">
+								<Link
+									className="group/btn flex items-center gap-2 font-bold text-primary"
+									href={`/news/${item.id}`}
+								>
 									Read More{" "}
-									<ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-								</button>
+									<ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1 rtl:rotate-180" />
+								</Link>
 							</div>
 						</div>
 					))}

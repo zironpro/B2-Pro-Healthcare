@@ -15,11 +15,11 @@ import {
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 
-import { services } from "@/lib/content";
+import { Link } from "@/i18n/routing";
 
 import { CTA } from "../home/components/cta";
+import { SERVICES } from "./data/data";
 
 const ICON_MAP = {
 	HeartPulse: FlaskConical,
@@ -142,12 +142,13 @@ export function ServicesView() {
 					</div>
 
 					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
-						{services.map((service) => {
+						{SERVICES.map((service) => {
 							const IconComponent =
 								ICON_MAP[service.icon as keyof typeof ICON_MAP];
 							return (
-								<Card
-									className="group relative flex h-[500px] flex-col overflow-hidden rounded-[3.5rem] border-none bg-[#F8F9FA] p-10 transition-all duration-500 hover:bg-primary hover:shadow-[0_30px_60px_-15px_rgba(var(--primary-rgb),0.3)]"
+								<Link
+									className="group relative flex h-[500px] flex-col overflow-hidden rounded-[3.5rem] bg-[#F8F9FA] p-10 shadow-sm transition-all duration-500 hover:bg-primary hover:shadow-[0_30px_60px_-15px_rgba(var(--primary-rgb),0.3)] hover:shadow-xl"
+									href={`/services/${service.id}`}
 									key={service.id}
 								>
 									<div className="relative z-10 flex h-full flex-col justify-between">
@@ -173,7 +174,7 @@ export function ServicesView() {
 
 										<div className="flex items-center gap-4 pt-6">
 											<div className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-primary transition-transform group-hover:scale-110">
-												<ArrowRight className="h-6 w-6" />
+												<ArrowRight className="h-6 w-6 rtl:rotate-180" />
 											</div>
 											<span className="font-bold text-slate-900 text-sm opacity-0 transition-all group-hover:text-white group-hover:opacity-100">
 												{t("learnMore")}
@@ -185,7 +186,7 @@ export function ServicesView() {
 									{IconComponent && (
 										<IconComponent className="absolute -bottom-10 h-64 w-64 rotate-12 text-slate-200 transition-colors group-hover:text-white/5 ltr:-right-10 rtl:-left-10" />
 									)}
-								</Card>
+								</Link>
 							);
 						})}
 					</div>
