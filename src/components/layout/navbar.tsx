@@ -66,16 +66,29 @@ export function Navbar() {
 
 					{/* Desktop Navigation */}
 					<div className="hidden items-center gap-8 md:flex">
-						{NAV_LINKS.map((link) => (
-							<Link
-								className="group relative font-semibold text-base text-muted-foreground transition-colors hover:text-primary"
-								href={link.href}
-								key={link.name}
-							>
-								{link.name}
-								<span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
-							</Link>
-						))}
+						{NAV_LINKS.map((link) => {
+							const isActive = pathname === link.href;
+							return (
+								<Link
+									className={cn(
+										"group relative font-semibold text-base transition-colors",
+										isActive
+											? "text-primary"
+											: "text-muted-foreground hover:text-primary"
+									)}
+									href={link.href}
+									key={link.name}
+								>
+									{link.name}
+									<span
+										className={cn(
+											"absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full",
+											isActive ? "w-full" : "w-0"
+										)}
+									/>
+								</Link>
+							);
+						})}
 					</div>
 
 					{/* Actions */}
@@ -146,15 +159,23 @@ export function Navbar() {
 								</SheetTitle>
 							</SheetHeader>
 							<div className="flex flex-col gap-6 p-6">
-								{NAV_LINKS.map((link) => (
-									<Link
-										className="border-border border-b pb-2 font-semibold text-foreground text-lg transition-colors hover:text-primary"
-										href={link.href}
-										key={link.name}
-									>
-										{link.name}
-									</Link>
-								))}
+								{NAV_LINKS.map((link) => {
+									const isActive = pathname === link.href;
+									return (
+										<Link
+											className={cn(
+												"border-border border-b pb-2 font-semibold text-lg transition-colors",
+												isActive
+													? "border-primary text-primary"
+													: "text-foreground hover:text-primary"
+											)}
+											href={link.href}
+											key={link.name}
+										>
+											{link.name}
+										</Link>
+									);
+								})}
 								<div className="mt-4 flex flex-col gap-4">
 									<div className="flex items-center gap-3 rounded-2xl bg-slate-50 p-4">
 										<Phone className="h-5 w-5 text-secondary" />
