@@ -55,7 +55,7 @@ export function Navbar() {
 							<HeartPulse className="h-7 w-7" />
 						</div>
 						<span className="font-bold text-2xl text-foreground tracking-tight">
-							B2 Pro <span className="text-secondary">Healthcare</span>
+							B2 Pro <span className="text-primary">Healthcare</span>
 						</span>
 					</Link>
 
@@ -93,7 +93,7 @@ export function Navbar() {
 							<span className="font-bold text-muted-foreground text-sm uppercase tracking-widest">
 								Emergency
 							</span>
-							<div className="flex items-center gap-1.5 font-extrabold text-lg text-secondary">
+							<div className="flex items-center gap-1.5 font-extrabold text-lg text-primary">
 								<Phone className="h-4 w-4" />
 								<span>+1 234 567 890</span>
 							</div>
