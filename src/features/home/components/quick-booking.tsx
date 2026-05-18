@@ -1,26 +1,10 @@
 "use client";
 
-import {
-	ArrowRight,
-	Calendar,
-	Clock,
-	Phone,
-	ShieldCheck,
-	Sparkles,
-	Stethoscope,
-	User,
-} from "lucide-react";
+import { ArrowRight, Clock, ShieldCheck, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 
 export function QuickBooking() {
 	const t = useTranslations("HomeBooking");
@@ -57,94 +41,60 @@ export function QuickBooking() {
 
 					<form className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
 						{/* Card 1: Full Name */}
-						<div className="group relative flex flex-col justify-between rounded-[2rem] border border-slate-100 bg-white/85 p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md">
-							<div className="mb-4 flex items-center justify-between">
-								<span className="font-black text-[10px] text-slate-400 uppercase tracking-wider transition-colors group-focus-within:text-primary">
-									01 / Patient Name
-								</span>
-								<div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-50 text-slate-400 transition-colors group-focus-within:bg-primary/10 group-focus-within:text-primary">
-									<User className="h-4 w-4" />
-								</div>
-							</div>
-							<div className="space-y-1">
-								<Input
-									className="h-10 border-0 bg-transparent p-0 font-medium text-lg text-slate-900 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0"
-									placeholder="e.g. John Doe"
-								/>
-								<p className="font-bold text-[10px] text-slate-400">
-									Enter your full legal name
-								</p>
-							</div>
+						<div className="space-y-3">
+							<label className="font-bold text-slate-700 text-sm">
+								{t("name")}
+							</label>
+							<Input
+								className="h-14 rounded-2xl border-slate-200 bg-slate-50 px-5 text-base focus-visible:border-primary focus-visible:ring-primary"
+								placeholder="e.g. John Doe"
+								required
+							/>
 						</div>
 
 						{/* Card 2: Phone Number */}
-						<div className="group relative flex flex-col justify-between rounded-[2rem] border border-slate-100 bg-white/85 p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md">
-							<div className="mb-4 flex items-center justify-between">
-								<span className="font-black text-[10px] text-slate-400 uppercase tracking-wider transition-colors group-focus-within:text-primary">
-									02 / Contact Phone
-								</span>
-								<div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-50 text-slate-400 transition-colors group-focus-within:bg-primary/10 group-focus-within:text-primary">
-									<Phone className="h-4 w-4" />
-								</div>
-							</div>
-							<div className="space-y-1">
-								<Input
-									className="h-10 border-0 bg-transparent p-0 font-medium text-lg text-slate-900 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0"
-									placeholder="+1 (555) 000-0000"
-								/>
-								<p className="font-bold text-[10px] text-slate-400">
-									For appointment updates
-								</p>
-							</div>
+						<div className="space-y-3">
+							<label className="font-bold text-slate-700 text-sm">
+								{t("phone")}
+							</label>
+							<Input
+								className="h-14 rounded-2xl border-slate-200 bg-slate-50 px-5 text-base focus-visible:border-primary focus-visible:ring-primary"
+								placeholder="+1 (555) 000-0000"
+								required
+								type="tel"
+							/>
 						</div>
 
 						{/* Card 3: Department Select */}
-						<div className="group relative flex flex-col justify-between rounded-[2rem] border border-slate-100 bg-white/85 p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md">
-							<div className="mb-4 flex items-center justify-between">
-								<span className="font-black text-[10px] text-slate-400 uppercase tracking-wider transition-colors group-focus-within:text-primary">
-									03 / Specialization
-								</span>
-								<div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-50 text-slate-400 transition-colors group-focus-within:bg-primary/10 group-focus-within:text-primary">
-									<Stethoscope className="h-4 w-4" />
-								</div>
-							</div>
-							<div className="space-y-1">
-								<Select>
-									<SelectTrigger className="h-10 border-0 bg-transparent p-0 font-medium text-lg text-slate-900 focus:ring-0 focus:ring-offset-0">
-										<SelectValue placeholder="Select Department" />
-									</SelectTrigger>
-									<SelectContent className="rounded-2xl border-slate-100 shadow-xl">
-										<SelectItem value="general">General Checkup</SelectItem>
-										<SelectItem value="cardio">Cardiology</SelectItem>
-										<SelectItem value="pediatric">Pediatrics</SelectItem>
-										<SelectItem value="dental">Dental</SelectItem>
-									</SelectContent>
-								</Select>
-								<p className="font-bold text-[10px] text-slate-400">
-									Choose medical department
-								</p>
-							</div>
+						<div className="space-y-3">
+							<label className="font-bold text-slate-700 text-sm">
+								{t("service")}
+							</label>
+							<select
+								className="flex h-14 w-full cursor-pointer rounded-2xl border border-slate-200 bg-slate-50 px-5 font-medium text-base text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
+								defaultValue=""
+								required
+							>
+								<option disabled value="">
+									Select Department
+								</option>
+								<option value="general">General Checkup</option>
+								<option value="cardio">Cardiology</option>
+								<option value="pediatric">Pediatrics</option>
+								<option value="dental">Dental</option>
+							</select>
 						</div>
 
 						{/* Card 4: Date Picker */}
-						<div className="group relative flex flex-col justify-between rounded-[2rem] border border-slate-100 bg-white/85 p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md">
-							<div className="mb-4 flex items-center justify-between">
-								<span className="font-black text-[10px] text-slate-400 uppercase tracking-wider transition-colors group-focus-within:text-primary">
-									04 / Preferred Date
-								</span>
-								<div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-50 text-slate-400 transition-colors group-focus-within:bg-primary/10 group-focus-within:text-primary">
-									<Calendar className="h-4 w-4" />
-								</div>
-							</div>
-							<div className="space-y-1">
-								<Input
-									className="h-10 border-0 bg-transparent p-0 font-medium text-lg text-slate-900 focus-visible:ring-0 focus-visible:ring-offset-0"
-									type="date"
-								/>
-								<p className="font-bold text-[10px] text-slate-400">
-									Select consultation day
-								</p>
-							</div>
+						<div className="space-y-3">
+							<label className="font-bold text-slate-700 text-sm">
+								{t("date")}
+							</label>
+							<Input
+								className="h-14 cursor-pointer rounded-2xl border-slate-200 bg-slate-50 px-5 font-bold text-base focus-visible:border-primary focus-visible:ring-primary"
+								required
+								type="date"
+							/>
 						</div>
 
 						{/* Dynamic Submit Block */}
