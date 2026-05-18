@@ -160,7 +160,7 @@ export function QuickBooking() {
 								</div>
 							</div>
 
-							<Button className="group h-16 w-full min-w-[220px] rounded-2xl bg-primary px-8 font-black text-white shadow-primary/20 shadow-xl transition-all hover:bg-slate-900 active:scale-[0.98] md:w-auto">
+							<Button className="group h-16 w-full min-w-[220px] rounded-2xl bg-primary px-8 font-black text-white shadow-primary/20 shadow-xl transition-all hover:bg-primary/90 active:scale-[0.98] md:w-auto">
 								<span className="flex items-center justify-center gap-2">
 									{t("button")}
 									<ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

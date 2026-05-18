@@ -29,7 +29,24 @@ const SheetTrigger = React.forwardRef<
 });
 SheetTrigger.displayName = "SheetTrigger";
 
-const SheetClose = SheetPrimitive.Close;
+const SheetClose = React.forwardRef<
+	React.ElementRef<typeof SheetPrimitive.Close>,
+	React.ComponentPropsWithoutRef<typeof SheetPrimitive.Close> & {
+		render?: (
+			props: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Close>
+		) => React.ReactNode;
+	}
+>(({ render, ...props }, ref) => {
+	if (render) {
+		return (
+			<SheetPrimitive.Close asChild {...props} ref={ref}>
+				{render(props)}
+			</SheetPrimitive.Close>
+		);
+	}
+	return <SheetPrimitive.Close {...props} ref={ref} />;
+});
+SheetClose.displayName = "SheetClose";
 
 const SheetPortal = SheetPrimitive.Portal;
 

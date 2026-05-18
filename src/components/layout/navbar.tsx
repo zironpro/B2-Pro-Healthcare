@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
 	Sheet,
+	SheetClose,
 	SheetContent,
 	SheetHeader,
 	SheetTitle,
@@ -108,11 +109,14 @@ export function Navbar() {
 						</div>
 						<Button
 							className="h-12 rounded-full px-8 text-base shadow-lg shadow-primary/20 transition-all hover:shadow-primary/40"
+							render={({ className }) => (
+								<Link className={className} href="/booking">
+									<Calendar className="mr-2.5 h-5 w-5" />
+									{t("bookAppointment")}
+								</Link>
+							)}
 							size="lg"
-						>
-							<Calendar className="mr-2.5 h-5 w-5" />
-							{t("bookAppointment")}
-						</Button>
+						/>
 					</div>
 
 					{/* Mobile Menu Toggle */}
@@ -163,9 +167,26 @@ export function Navbar() {
 											</p>
 										</div>
 									</div>
-									<Button className="h-12 w-full rounded-xl text-lg shadow-lg shadow-primary/20">
-										{t("bookAppointment")}
-									</Button>
+									<SheetClose
+										render={({ onClick }) => (
+											<Button
+												className="h-12 w-full rounded-xl text-lg shadow-lg shadow-primary/20"
+												render={({ className }) => (
+													<Link
+														className={className}
+														href="/booking"
+														onClick={(e) =>
+															onClick?.(
+																e as unknown as React.MouseEvent<HTMLButtonElement>
+															)
+														}
+													>
+														{t("bookAppointment")}
+													</Link>
+												)}
+											/>
+										)}
+									/>
 								</div>
 							</div>
 						</SheetContent>
