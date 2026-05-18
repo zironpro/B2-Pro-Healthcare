@@ -181,4 +181,67 @@ export default {
 			"Patient-Centric Approach & Personalized Care",
 		],
 	},
+	Doctors: {
+		heroTag: "Top Rated Specialists",
+		heroTitle1: "Meet Our",
+		heroTitle2: "Specialist Doctors",
+		heroDesc:
+			"Our team consists of world-class medical professionals dedicated to providing exceptional care and personalized treatment for every patient.",
+		filters: {
+			all: "All",
+			cardiology: "Cardiology",
+			neurology: "Neurology",
+			pediatrics: "Pediatrics",
+			general: "General Physician",
+		},
+		search: {
+			placeholder: "Search Name...",
+			inputPlaceholder: "Type to search specialists or medical departments...",
+			quickFilters: "Quick Filters",
+			availableToday: "Available Today",
+			topRated: "Top Rated",
+			yearsExp: "10+ Years Exp",
+			noResults: "No results found for your search.",
+			explore: "Explore",
+			allSpecialists: "All Specialists",
+			availableSpecialties: "Available Specialties",
+			ourDoctors: "Our Doctors",
+			specialistRole: "Specialist Doctor",
+			noDoctorsFound: "No doctors found matching",
+			clearSearch: "Clear search",
+		},
+		grid: {
+			availableToday: "Available Today",
+			reviews: "(150+ Reviews)",
+			experience: "Experience",
+			success: "Success",
+			bookConsultation: "Book Consultation",
+		},
+		whyUs: {
+			title1: "Committed to Your",
+			title2: "Health & Wellbeing",
+			desc: "Our doctors are more than just medical experts—they are compassionate caregivers committed to your long-term health journey.",
+			quote:
+				'"Healing is a matter of time, but it is sometimes also a matter of opportunity."',
+			author: "— Hippocrates",
+		},
+		features: [
+			{
+				title: "World Class Experts",
+				desc: "Our doctors come from top medical institutions globally.",
+			},
+			{
+				title: "Patient-First Care",
+				desc: "Personalized treatment plans tailored to your specific needs.",
+			},
+			{
+				title: "Certified Specialists",
+				desc: "Every doctor is board-certified in their respective specialty.",
+			},
+			{
+				title: "Team Collaboration",
+				desc: "Our specialists work together to ensure accurate diagnosis.",
+			},
+		],
+	},
 } as const;
