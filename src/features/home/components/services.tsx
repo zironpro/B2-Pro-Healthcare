@@ -1,4 +1,5 @@
 import { Ambulance, CalendarDays, FlaskConical, Headset } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -13,16 +14,19 @@ const ICON_MAP = {
 };
 
 export function Services() {
+	const t = useTranslations("HomeServices");
+	const tContent = useTranslations("ContentServices");
+
 	return (
 		<section className="bg-white py-24">
 			<div className="mx-auto max-w-400 px-6">
 				<div className="mb-20 space-y-4 text-center">
 					<h2 className="font-bold text-4xl text-slate-900 lg:text-5xl">
-						Our Medical Services
+						{t("title")}
 					</h2>
 					<p className="mx-auto max-w-2xl font-medium text-slate-500">
-						We are dedicated to serve you <br />
-						best medical services
+						{t("desc1")} <br />
+						{t("desc2")}
 					</p>
 				</div>
 
@@ -37,7 +41,7 @@ export function Services() {
 									"group flex flex-col items-center justify-center rounded-[2.5rem] p-12 text-center transition-all duration-300",
 									"border-none bg-[#F8F9FA] shadow-sm hover:bg-primary hover:text-white hover:shadow-2xl hover:shadow-primary/20"
 								)}
-								key={service.title}
+								key={service.id}
 							>
 								<CardContent className="flex flex-col items-center space-y-6 p-0">
 									<div
@@ -54,7 +58,9 @@ export function Services() {
 											"text-slate-900 group-hover:text-white"
 										)}
 									>
-										{service.title}
+										{tContent(
+											`${service.id}.title` as Parameters<typeof tContent>[0]
+										)}
 									</p>
 								</CardContent>
 							</Card>

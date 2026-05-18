@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,16 +10,18 @@ import { doctors } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function Doctors() {
+	const t = useTranslations("HomeDoctors");
+	const tContent = useTranslations("ContentDoctors");
+
 	return (
 		<section className="bg-[#F8F9FA] py-24">
 			<div className="mx-auto max-w-400 px-6">
 				<div className="mb-16 space-y-4 text-center">
 					<h2 className="font-bold text-4xl text-slate-900 lg:text-5xl">
-						Specialist Doctors
+						{t("title")}
 					</h2>
 					<p className="mx-auto max-w-2xl font-medium text-slate-500">
-						Our team of highly qualified and experienced specialists is
-						dedicated to providing the best possible care.
+						{t("desc")}
 					</p>
 				</div>
 
@@ -43,16 +46,20 @@ export function Doctors() {
 									/>
 									<div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 font-bold text-[10px] text-primary backdrop-blur-md">
 										<div className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-										Available
+										{t("available")}
 									</div>
 								</div>
 
 								<div className="space-y-2 text-center">
 									<p className="font-bold text-2xl text-slate-900">
-										{doctor.name}
+										{tContent(
+											`${doctor.id}.name` as Parameters<typeof tContent>[0]
+										)}
 									</p>
 									<p className="font-medium text-slate-500 text-sm">
-										{doctor.specialty}
+										{tContent(
+											`${doctor.id}.specialty` as Parameters<typeof tContent>[0]
+										)}
 									</p>
 								</div>
 
@@ -71,7 +78,7 @@ export function Doctors() {
 								</div>
 
 								<Button className="h-14 w-full rounded-xl bg-secondary font-bold text-primary transition-all hover:bg-primary hover:text-white">
-									Book an Appointment
+									{t("book")}
 								</Button>
 							</CardContent>
 						</Card>
@@ -80,7 +87,7 @@ export function Doctors() {
 
 				<div className="mt-16 flex justify-center">
 					<Button className="h-12 rounded-full bg-primary px-10 font-bold shadow-lg shadow-primary/20">
-						See more
+						{t("seeMore")}
 					</Button>
 				</div>
 			</div>

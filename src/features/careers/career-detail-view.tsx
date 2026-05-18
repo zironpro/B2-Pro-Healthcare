@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ArrowLeft, CheckCircle2, Clock, MapPin, Send } from "lucide-react";
@@ -14,6 +13,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+
+import { Link } from "@/i18n/routing";
 
 import { OPEN_ROLES } from "./data/data";
 

@@ -1,22 +1,24 @@
 import Image from "next/image";
 
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Card, CardContent } from "@/components/ui/card";
 
 import { testimonials } from "@/lib/content";
 
 export function Testimonials() {
+	const t = useTranslations("HomeTestimonials");
+	const tContent = useTranslations("ContentTestimonials");
+
 	return (
 		<section className="relative bg-white py-24">
 			<div className="mx-auto max-w-400 px-6">
 				<div className="mb-20 space-y-2 text-center">
 					<h2 className="font-bold text-5xl text-slate-900 tracking-tight lg:text-6xl">
-						Patients Testimonial
+						{t("title")}
 					</h2>
-					<p className="font-medium text-lg text-slate-400">
-						Let's see what our happy patients says
-					</p>
+					<p className="font-medium text-lg text-slate-400">{t("desc")}</p>
 				</div>
 
 				<div className="group relative">
@@ -57,10 +59,18 @@ export function Testimonials() {
 
 										<div className="space-y-1">
 											<p className="font-bold text-slate-900 text-xl">
-												{testimonial.name}
+												{tContent(
+													`${testimonial.id}.name` as Parameters<
+														typeof tContent
+													>[0]
+												)}
 											</p>
 											<p className="font-medium text-slate-400 text-xs">
-												{testimonial.role}
+												{tContent(
+													`${testimonial.id}.role` as Parameters<
+														typeof tContent
+													>[0]
+												)}
 											</p>
 											<div className="flex gap-0.5">
 												{["star-1", "star-2", "star-3", "star-4", "star-5"].map(
@@ -76,7 +86,11 @@ export function Testimonials() {
 									</div>
 
 									<p className="pt-2 font-medium text-slate-500 text-sm leading-relaxed">
-										{testimonial.content}
+										{tContent(
+											`${testimonial.id}.content` as Parameters<
+												typeof tContent
+											>[0]
+										)}
 									</p>
 								</CardContent>
 							</Card>

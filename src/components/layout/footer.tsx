@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import {
 	Globe,
 	HeartPulse,
@@ -10,11 +8,16 @@ import {
 	Send,
 	Share2,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import { Link } from "@/i18n/routing";
+
 export function Footer() {
+	const t = useTranslations("Footer");
+
 	return (
 		<footer className="mt-auto bg-slate-900 py-20 text-slate-300">
 			<div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-12 px-6 md:grid-cols-2 lg:grid-cols-4">
@@ -25,12 +28,12 @@ export function Footer() {
 							<HeartPulse className="h-7 w-7" />
 						</div>
 						<span className="font-bold text-2xl text-white tracking-tight">
-							B2 Pro <span className="text-secondary">Healthcare</span>
+							{t("brand")}{" "}
+							<span className="text-secondary">{t("healthcare")}</span>
 						</span>
 					</div>
 					<p className="text-lg text-slate-400 leading-relaxed">
-						Pioneering the future of medical care with premium, patient-centered
-						solutions. B2 Pro Healthcare is your trusted partner in well-being.
+						{t("mission")}
 					</p>
 					<div className="flex gap-4">
 						{[
@@ -52,15 +55,17 @@ export function Footer() {
 
 				{/* Quick Links */}
 				<div className="space-y-8">
-					<h4 className="font-bold text-white text-xl">Quick Links</h4>
+					<h4 className="font-bold text-white text-xl">
+						{t("quickLinksTitle")}
+					</h4>
 					<ul className="space-y-5">
 						{[
-							{ name: "Find a Doctor", href: "/doctors" },
-							{ name: "Our Services", href: "/services" },
-							{ name: "Book Appointment", href: "/book" },
-							{ name: "About Us", href: "/about" },
-							{ name: "Careers", href: "/careers" },
-							{ name: "Contact", href: "/contact" },
+							{ name: t("quickLinks.findDoctor"), href: "/doctors" },
+							{ name: t("quickLinks.services"), href: "/services" },
+							{ name: t("quickLinks.book"), href: "/book" },
+							{ name: t("quickLinks.about"), href: "/about" },
+							{ name: t("quickLinks.careers"), href: "/careers" },
+							{ name: t("quickLinks.contact"), href: "/contact" },
 						].map((link) => (
 							<li key={link.name}>
 								<Link
@@ -77,7 +82,7 @@ export function Footer() {
 
 				{/* Contact Info */}
 				<div className="space-y-8">
-					<h4 className="font-bold text-white text-xl">Contact Us</h4>
+					<h4 className="font-bold text-white text-xl">{t("contactTitle")}</h4>
 					<ul className="space-y-6">
 						<li className="flex items-start gap-4">
 							<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-800">
@@ -85,18 +90,18 @@ export function Footer() {
 							</div>
 							<div>
 								<p className="mb-1 font-bold text-slate-500 text-xs uppercase tracking-wider">
-									Emergency
+									{t("emergency")}
 								</p>
-								<p className="font-bold text-lg text-white">+1 234 567 890</p>
+								<p className="font-bold text-lg text-white" dir="ltr">
+									+1 234 567 890
+								</p>
 							</div>
 						</li>
 						<li className="flex items-start gap-4">
 							<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-800">
 								<MapPin className="h-5 w-5 text-secondary" />
 							</div>
-							<p className="text-base leading-relaxed">
-								123 Healthcare Ave, Medical District, NY 10001
-							</p>
+							<p className="text-base leading-relaxed">{t("address")}</p>
 						</li>
 						<li className="flex items-start gap-4">
 							<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-800">
@@ -109,19 +114,18 @@ export function Footer() {
 
 				{/* Newsletter */}
 				<div className="space-y-8">
-					<h4 className="font-bold text-white text-xl">Newsletter</h4>
-					<p className="text-base text-slate-400">
-						Get the latest health tips and updates delivered to your inbox
-						weekly.
-					</p>
+					<h4 className="font-bold text-white text-xl">
+						{t("newsletterTitle")}
+					</h4>
+					<p className="text-base text-slate-400">{t("newsletterDesc")}</p>
 					<div className="space-y-3">
 						<Input
 							className="h-12 rounded-xl border-slate-700 bg-slate-800 text-white outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-primary"
-							placeholder="Your email address"
+							placeholder={t("emailPlaceholder")}
 							type="email"
 						/>
 						<Button className="h-12 w-full rounded-xl font-bold text-base shadow-lg shadow-primary/20">
-							Subscribe Now
+							{t("subscribe")}
 						</Button>
 					</div>
 				</div>
@@ -129,16 +133,16 @@ export function Footer() {
 
 			{/* Bottom Bar */}
 			<div className="mx-auto mt-20 flex max-w-[1600px] flex-col items-center justify-between gap-6 border-slate-800 border-t px-6 pt-8 text-slate-500 text-sm md:flex-row">
-				<p>&copy; 2026 B2 Pro Healthcare. All rights reserved.</p>
+				<p>{t("copyright")}</p>
 				<div className="flex gap-8">
 					<Link className="transition-colors hover:text-white" href="/privacy">
-						Privacy Policy
+						{t("privacy")}
 					</Link>
 					<Link className="transition-colors hover:text-white" href="/terms">
-						Terms of Service
+						{t("terms")}
 					</Link>
 					<Link className="transition-colors hover:text-white" href="/cookies">
-						Cookie Policy
+						{t("cookies")}
 					</Link>
 				</div>
 			</div>

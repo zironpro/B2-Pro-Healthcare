@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { CTA } from "../home/components/cta";
 
 export function ContactView() {
+	const t = useTranslations("Contact");
+
 	return (
 		<main className="flex min-h-screen flex-col bg-white">
 			{/* Immersive Hero Section */}
@@ -27,16 +30,14 @@ export function ContactView() {
 						<div className="max-w-3xl space-y-4">
 							<div className="inline-flex items-center gap-2 rounded-full bg-primary/20 px-4 py-2 font-bold text-primary text-sm backdrop-blur-md">
 								<Phone className="h-4 w-4" />
-								<span>Contact Support</span>
+								<span>{t("heroTag")}</span>
 							</div>
 							<h1 className="font-black text-5xl text-white leading-tight lg:text-7xl">
-								We're Here to <br />
-								<span className="text-secondary">Help You.</span>
+								{t("heroTitle1")} <br />
+								<span className="text-secondary">{t("heroTitle2")}</span>
 							</h1>
 							<p className="max-w-xl text-lg text-slate-300 leading-relaxed">
-								Reach out to B2 Pro Healthcare for appointments, medical
-								inquiries, or emergency support. Our dedicated team is available
-								24/7.
+								{t("heroDesc")}
 							</p>
 						</div>
 					</div>
@@ -48,38 +49,38 @@ export function ContactView() {
 				<div className="mx-auto max-w-[1600px] px-6">
 					<div className="mb-16 space-y-4 text-center">
 						<h2 className="font-black text-5xl text-slate-900 lg:text-6xl">
-							Get in <span className="text-primary">Touch</span>
+							{t("methodsTitle1")}{" "}
+							<span className="text-primary">{t("methodsTitle2")}</span>
 						</h2>
 						<p className="mx-auto max-w-2xl text-slate-500 text-xl">
-							Choose the most convenient way to reach us. We strive to respond
-							to all inquiries as quickly as possible.
+							{t("methodsDesc")}
 						</p>
 					</div>
 
 					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
 						{[
 							{
-								label: "Emergency Support",
+								label: t("methods.emergency.label"),
 								value: "+1 (800) 123-4567",
-								desc: "Available 24/7 for urgent care.",
+								desc: t("methods.emergency.desc"),
 								icon: Phone,
 							},
 							{
-								label: "Email Inquiries",
+								label: t("methods.email.label"),
 								value: "care@b2prohealth.com",
-								desc: "We reply within 24 hours.",
+								desc: t("methods.email.desc"),
 								icon: Mail,
 							},
 							{
-								label: "Main Clinic",
+								label: t("methods.clinic.label"),
 								value: "123 Healthcare Ave, NY",
-								desc: "Walk-ins are welcome.",
+								desc: t("methods.clinic.desc"),
 								icon: MapPin,
 							},
 							{
-								label: "Working Hours",
+								label: t("methods.hours.label"),
 								value: "Mon - Sun: 24/7",
-								desc: "Always open for you.",
+								desc: t("methods.hours.desc"),
 								icon: Clock,
 							},
 						].map((contact) => (
@@ -115,13 +116,11 @@ export function ContactView() {
 						<div className="space-y-8">
 							<div className="space-y-4">
 								<h2 className="font-black text-5xl text-white lg:text-6xl">
-									Send us a <br />
-									<span className="text-secondary">Message</span>
+									{t("formTitle1")} <br />
+									<span className="text-secondary">{t("formTitle2")}</span>
 								</h2>
 								<p className="max-w-xl text-slate-400 text-xl leading-relaxed">
-									Have a specific question or need to book a specialized
-									consultation? Fill out the form, and our support team will get
-									back to you shortly.
+									{t("formDesc")}
 								</p>
 							</div>
 
@@ -132,9 +131,11 @@ export function ContactView() {
 									</div>
 									<div>
 										<p className="font-bold text-lg text-white">
-											Call Us Directly
+											{t("callUs")}
 										</p>
-										<p className="text-slate-400 text-sm">+1 (800) 123-4567</p>
+										<p className="text-slate-400 text-sm" dir="ltr">
+											+1 (800) 123-4567
+										</p>
 									</div>
 								</div>
 							</div>
@@ -149,12 +150,11 @@ export function ContactView() {
 											className="font-bold text-slate-700 text-sm"
 											htmlFor="firstName"
 										>
-											First Name
+											{t("firstName")}
 										</label>
 										<Input
 											className="h-14 rounded-2xl border-slate-200 bg-slate-50 px-5 text-base focus-visible:ring-primary"
 											id="firstName"
-											placeholder="John"
 											type="text"
 										/>
 									</div>
@@ -163,12 +163,11 @@ export function ContactView() {
 											className="font-bold text-slate-700 text-sm"
 											htmlFor="lastName"
 										>
-											Last Name
+											{t("lastName")}
 										</label>
 										<Input
 											className="h-14 rounded-2xl border-slate-200 bg-slate-50 px-5 text-base focus-visible:ring-primary"
 											id="lastName"
-											placeholder="Doe"
 											type="text"
 										/>
 									</div>
@@ -179,12 +178,11 @@ export function ContactView() {
 										className="font-bold text-slate-700 text-sm"
 										htmlFor="email"
 									>
-										Email Address
+										{t("email")}
 									</label>
 									<Input
 										className="h-14 rounded-2xl border-slate-200 bg-slate-50 px-5 text-base focus-visible:ring-primary"
 										id="email"
-										placeholder="john@example.com"
 										type="email"
 									/>
 								</div>
@@ -194,12 +192,11 @@ export function ContactView() {
 										className="font-bold text-slate-700 text-sm"
 										htmlFor="subject"
 									>
-										Subject
+										{t("subject")}
 									</label>
 									<Input
 										className="h-14 rounded-2xl border-slate-200 bg-slate-50 px-5 text-base focus-visible:ring-primary"
 										id="subject"
-										placeholder="How can we help you?"
 										type="text"
 									/>
 								</div>
@@ -209,12 +206,11 @@ export function ContactView() {
 										className="font-bold text-slate-700 text-sm"
 										htmlFor="message"
 									>
-										Message
+										{t("message")}
 									</label>
 									<Textarea
 										className="min-h-[160px] resize-none rounded-3xl border-slate-200 bg-slate-50 p-5 text-base focus-visible:ring-primary"
 										id="message"
-										placeholder="Please describe your inquiry in detail..."
 									/>
 								</div>
 
@@ -222,7 +218,7 @@ export function ContactView() {
 									className="h-14 w-full rounded-2xl bg-primary font-bold text-lg text-white hover:bg-primary/90"
 									size="lg"
 								>
-									<span>Send Message</span>
+									<span>{t("send")}</span>
 									<Send className="ml-2 h-5 w-5" />
 								</Button>
 							</form>

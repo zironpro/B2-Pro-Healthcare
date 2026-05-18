@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import {
 	ArrowRight,
@@ -16,6 +15,8 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+
+import { Link } from "@/i18n/routing";
 
 import { OPEN_ROLES } from "./data/data";
 

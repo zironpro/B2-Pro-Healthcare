@@ -1,18 +1,19 @@
 import Image from "next/image";
 
 import { Activity, ArrowRight, Pill } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
+	const t = useTranslations("Hero");
+
 	return (
 		<section className="relative w-full bg-white px-4 pt-28 pb-12 lg:pt-36 lg:pb-20">
 			{/* Main Banner Container */}
 			<div className="relative mx-auto min-h-[350px] max-w-[1600px] overflow-hidden rounded-[3rem] bg-primary lg:min-h-[520px]">
 				{/* Visually Hidden H1 for SEO */}
-				<h1 className="sr-only">
-					B2 Pro Healthcare - Leading Medical & Specialist Services
-				</h1>
+				<h1 className="sr-only">{t("h1")}</h1>
 
 				{/* Background Decorative Text */}
 				<div
@@ -20,7 +21,7 @@ export function Hero() {
 					className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden"
 				>
 					<span className="-translate-y-2 transform font-black text-[10rem] text-accent leading-none tracking-tighter opacity-20 lg:text-[18rem]">
-						Healthcare
+						{t("bgText")}
 					</span>
 				</div>
 
@@ -33,7 +34,7 @@ export function Hero() {
 								<Activity className="h-4 w-4" />
 							</div>
 							<span className="font-bold text-white text-xs tracking-wide lg:text-base">
-								Reduce HbA1c
+								{t("badge1")}
 							</span>
 						</div>
 
@@ -42,7 +43,7 @@ export function Hero() {
 								<Pill className="h-4 w-4" />
 							</div>
 							<span className="font-bold text-white text-xs tracking-wide lg:text-base">
-								No More Medications
+								{t("badge2")}
 							</span>
 						</div>
 					</div>
@@ -52,15 +53,14 @@ export function Hero() {
 						{/* Left Info Text */}
 						<div className="max-w-xs text-left">
 							<p className="font-bold text-[9px] text-white uppercase leading-relaxed tracking-widest opacity-80 lg:text-[10px]">
-								If you are looking for a creative and easy way to build a
-								website. WOW! is the perfect solution.
+								{t("info")}
 							</p>
 						</div>
 
 						{/* Right Action Buttons */}
 						<div className="flex items-center gap-2">
 							<Button className="h-14 rounded-full bg-secondary px-8 font-black text-base text-primary shadow-black/10 shadow-xl transition-all hover:bg-secondary/90">
-								Book Consultation
+								{t("button")}
 							</Button>
 							<div className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-secondary text-primary shadow-black/10 shadow-xl transition-transform hover:scale-105">
 								<ArrowRight className="h-6 w-6" />

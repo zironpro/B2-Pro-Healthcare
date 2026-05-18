@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-import Link from "next/link";
-
 import { Calendar, Globe, HeartPulse, Menu, Phone } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,20 +14,24 @@ import {
 	SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { useI18n } from "@/context/i18n-context";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-const NAV_LINKS = [
-	{ name: "Home", href: "/" },
-	{ name: "Services", href: "/services" },
-	{ name: "Doctors", href: "/doctors" },
-	{ name: "About", href: "/about" },
-	{ name: "Contact", href: "/contact" },
-];
-
 export function Navbar() {
-	const { locale, setLocale, isRTL } = useI18n();
+	const t = useTranslations("Navbar");
+	const locale = useLocale();
+	const router = useRouter();
+	const pathname = usePathname();
+	const isRTL = locale === "ar";
 	const [isScrolled, setIsScrolled] = useState(false);
+
+	const NAV_LINKS = [
+		{ name: t("links.home"), href: "/" },
+		{ name: t("links.services"), href: "/services" },
+		{ name: t("links.doctors"), href: "/doctors" },
+		{ name: t("links.about"), href: "/about" },
+		{ name: t("links.contact"), href: "/contact" },
+	];
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -55,7 +58,8 @@ export function Navbar() {
 							<HeartPulse className="h-7 w-7" />
 						</div>
 						<span className="font-bold text-2xl text-foreground tracking-tight">
-							B2 Pro <span className="text-primary">Healthcare</span>
+							{t("brand")}{" "}
+							<span className="text-primary">{t("healthcare")}</span>
 						</span>
 					</Link>
 
@@ -77,7 +81,11 @@ export function Navbar() {
 					<div className="hidden items-center gap-4 md:flex">
 						<Button
 							className="flex items-center gap-2 font-bold"
-							onClick={() => setLocale(locale === "en" ? "ar" : "en")}
+							onClick={() =>
+								router.replace(pathname, {
+									locale: locale === "en" ? "ar" : "en",
+								})
+							}
 							size="sm"
 							variant="ghost"
 						>
@@ -91,11 +99,11 @@ export function Navbar() {
 							)}
 						>
 							<span className="font-bold text-muted-foreground text-sm uppercase tracking-widest">
-								Emergency
+								{t("emergency")}
 							</span>
 							<div className="flex items-center gap-1.5 font-extrabold text-lg text-primary">
 								<Phone className="h-4 w-4" />
-								<span>+1 234 567 890</span>
+								<span dir="ltr">+1 234 567 890</span>
 							</div>
 						</div>
 						<Button
@@ -103,7 +111,7 @@ export function Navbar() {
 							size="lg"
 						>
 							<Calendar className="mr-2.5 h-5 w-5" />
-							Book Appointment
+							{t("bookAppointment")}
 						</Button>
 					</div>
 
@@ -128,7 +136,8 @@ export function Navbar() {
 										<HeartPulse className="h-6 w-6" />
 									</div>
 									<span className="font-bold text-foreground text-xl tracking-tight">
-										B2 Pro <span className="text-secondary">Healthcare</span>
+										{t("brand")}{" "}
+										<span className="text-secondary">{t("healthcare")}</span>
 									</span>
 								</SheetTitle>
 							</SheetHeader>
@@ -147,13 +156,15 @@ export function Navbar() {
 										<Phone className="h-5 w-5 text-secondary" />
 										<div>
 											<p className="font-medium text-slate-500 text-sm">
-												Emergency Contact
+												{t("emergency")}
 											</p>
-											<p className="font-bold">+1 234 567 890</p>
+											<p className="font-bold" dir="ltr">
+												+1 234 567 890
+											</p>
 										</div>
 									</div>
 									<Button className="h-12 w-full rounded-xl text-lg shadow-lg shadow-primary/20">
-										Book Appointment
+										{t("bookAppointment")}
 									</Button>
 								</div>
 							</div>
