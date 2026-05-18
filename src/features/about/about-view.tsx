@@ -10,10 +10,13 @@ import {
 	Target,
 	Users2,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { CTA } from "../home/components/cta";
 
 export function AboutView() {
+	const t = useTranslations("About");
+
 	return (
 		<main className="flex min-h-screen flex-col bg-white">
 			{/* Immersive Hero Section */}
@@ -32,16 +35,14 @@ export function AboutView() {
 						<div className="max-w-3xl space-y-4">
 							<div className="inline-flex items-center gap-2 rounded-full bg-primary/20 px-4 py-2 font-bold text-primary text-sm backdrop-blur-md">
 								<Users2 className="h-4 w-4" />
-								<span>Who We Are</span>
+								<span>{t("heroTag")}</span>
 							</div>
 							<h1 className="font-black text-5xl text-white leading-tight lg:text-7xl">
-								Healing Hearts, <br />
-								<span className="text-secondary">Changing Lives.</span>
+								{t("heroTitle1")} <br />
+								<span className="text-secondary">{t("heroTitle2")}</span>
 							</h1>
 							<p className="max-w-xl text-lg text-slate-300 leading-relaxed">
-								At B2 Pro Healthcare, we combine world-class medical expertise
-								with compassionate care to ensure every patient receives the
-								treatment they deserve.
+								{t("heroDesc")}
 							</p>
 						</div>
 					</div>
@@ -65,15 +66,11 @@ export function AboutView() {
 						<div className="space-y-8">
 							<div className="space-y-4">
 								<h2 className="font-black text-5xl text-slate-900 lg:text-6xl">
-									Our Story & <br />
-									<span className="text-primary">Evolution</span>
+									{t("storyTitle1")} <br />
+									<span className="text-primary">{t("storyTitle2")}</span>
 								</h2>
 								<p className="text-slate-500 text-xl leading-relaxed">
-									Founded with a vision to revolutionize healthcare, B2 Pro
-									Healthcare has grown from a small clinic to a leading
-									multi-specialty center. Our journey is defined by our
-									unwavering commitment to patient well-being and clinical
-									excellence.
+									{t("storyDesc")}
 								</p>
 							</div>
 
@@ -82,9 +79,11 @@ export function AboutView() {
 									<div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-50 text-primary shadow-sm">
 										<History className="h-6 w-6" />
 									</div>
-									<p className="font-black text-slate-900 text-xl">15+ Years</p>
+									<p className="font-black text-slate-900 text-xl">
+										{t("journeyYearsValue")}
+									</p>
 									<p className="font-medium text-slate-500 text-sm">
-										Of dedicated medical service across multiple departments.
+										{t("journeyYearsDesc")}
 									</p>
 								</div>
 								<div className="space-y-2">
@@ -92,10 +91,10 @@ export function AboutView() {
 										<ShieldCheck className="h-6 w-6" />
 									</div>
 									<p className="font-black text-slate-900 text-xl">
-										100% Certified
+										{t("journeyCertValue")}
 									</p>
 									<p className="font-medium text-slate-500 text-sm">
-										All our specialists and facilities are globally accredited.
+										{t("journeyCertDesc")}
 									</p>
 								</div>
 							</div>
@@ -109,10 +108,11 @@ export function AboutView() {
 				<div className="mx-auto max-w-[1600px] px-6">
 					<div className="mb-16 space-y-4 text-center">
 						<h2 className="font-black text-5xl text-white lg:text-7xl">
-							Core <span className="text-primary">Principles</span>
+							{t("principlesTitle1")}{" "}
+							<span className="text-primary">{t("principlesTitle2")}</span>
 						</h2>
 						<p className="mx-auto max-w-2xl text-slate-400 text-xl">
-							What drives us to be the best in our field every single day.
+							{t("principlesDesc")}
 						</p>
 					</div>
 
@@ -122,12 +122,10 @@ export function AboutView() {
 								<Target className="h-10 w-10" />
 							</div>
 							<h3 className="mb-4 font-black text-3xl text-white">
-								Our Mission
+								{t("missionTitle")}
 							</h3>
 							<p className="text-lg text-slate-400 leading-relaxed">
-								To provide accessible, high-quality healthcare that empowers our
-								community to live healthier, happier lives through innovation
-								and compassionate service.
+								{t("missionDesc")}
 							</p>
 						</div>
 
@@ -136,12 +134,10 @@ export function AboutView() {
 								<Eye className="h-10 w-10" />
 							</div>
 							<h3 className="mb-4 font-black text-3xl text-white">
-								Our Vision
+								{t("visionTitle")}
 							</h3>
 							<p className="text-lg text-slate-400 leading-relaxed">
-								To be the most trusted healthcare partner in the region,
-								recognized globally for our clinical standards, technological
-								advancement, and patient-centric approach.
+								{t("visionDesc")}
 							</p>
 						</div>
 					</div>
@@ -153,10 +149,26 @@ export function AboutView() {
 				<div className="mx-auto max-w-[1600px] px-6">
 					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
 						{[
-							{ label: "Patient Success", value: "99%", icon: HeartPulse },
-							{ label: "Expert Doctors", value: "50+", icon: Award },
-							{ label: "Modern Rooms", value: "120+", icon: Clock },
-							{ label: "Awards Won", value: "25+", icon: Award },
+							{
+								label: t("stats.successLabel"),
+								value: t("stats.successValue"),
+								icon: HeartPulse,
+							},
+							{
+								label: t("stats.doctorsLabel"),
+								value: t("stats.doctorsValue"),
+								icon: Award,
+							},
+							{
+								label: t("stats.roomsLabel"),
+								value: t("stats.roomsValue"),
+								icon: Clock,
+							},
+							{
+								label: t("stats.awardsLabel"),
+								value: t("stats.awardsValue"),
+								icon: Award,
+							},
 						].map((stat) => (
 							<div
 								className="flex flex-col items-center space-y-4 rounded-[3rem] border border-slate-100 bg-[#F8F9FA] p-10 text-center transition-all hover:shadow-xl"
