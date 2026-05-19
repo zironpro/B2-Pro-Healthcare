@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowRight, Clock, ShieldCheck, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 

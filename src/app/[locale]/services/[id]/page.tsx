@@ -1,24 +1,38 @@
 import type { Metadata } from "next";
 
+import { JsonLd } from "@/features/seo/json-ld";
 import { SERVICES } from "@/features/services/data/data";
 import { ServiceDetailView } from "@/features/services/service-detail-view";
+import en from "@/messages/en";
 
 type Props = {
-	params: Promise<{ id: string }>;
+	params: Promise<{ id: string; locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { id } = await params;
 	const service = SERVICES.find((s) => s.id === id);
+	const serviceData = en.ContentServices[id as keyof typeof en.ContentServices];
 
-	if (!service) {
+	if (!service || !serviceData) {
 		return {
 			title: "Service Not Found | B2 Pro Healthcare",
 		};
 	}
 
 	return {
-		title: "Services | B2 Pro Healthcare",
+		title: `${serviceData.title} | B2 Pro Healthcare`,
+		description: serviceData.description,
+		openGraph: {
+			title: `${serviceData.title} | B2 Pro Healthcare`,
+			description: serviceData.description,
+			images: [
+				{ url: service.image, width: 800, height: 600, alt: serviceData.title },
+			],
+		},
+		alternates: {
+			canonical: `https://b2prohealthcare.com/en/services/${id}`,
+		},
 	};
 }
 
@@ -30,5 +44,60 @@ export function generateStaticParams() {
 
 export default async function ServiceDetailPage({ params }: Props) {
 	const { id } = await params;
-	return <ServiceDetailView id={id} />;
+	const service = SERVICES.find((s) => s.id === id);
+	const serviceData = en.ContentServices[id as keyof typeof en.ContentServices];
+
+	const SITE_URL = "https://b2prohealthcare.com/en";
+
+	const graphSchema =
+		service && serviceData
+			? {
+					"@context": "https://schema.org",
+					"@graph": [
+						{
+							"@type": "MedicalWebPage",
+							"@id": `${SITE_URL}/services/${id}#webpage`,
+							url: `${SITE_URL}/services/${id}`,
+							name: serviceData.title,
+							description: serviceData.about,
+							image: `${SITE_URL}${service.image}`,
+							publisher: {
+								"@type": "Organization",
+								name: "B2 Pro Healthcare",
+							},
+						},
+						{
+							"@type": "BreadcrumbList",
+							"@id": `${SITE_URL}/services/${id}#breadcrumb`,
+							itemListElement: [
+								{
+									"@type": "ListItem",
+									position: 1,
+									name: "Home",
+									item: SITE_URL,
+								},
+								{
+									"@type": "ListItem",
+									position: 2,
+									name: "Services",
+									item: `${SITE_URL}/services`,
+								},
+								{
+									"@type": "ListItem",
+									position: 3,
+									name: serviceData.title,
+									item: `${SITE_URL}/services/${id}`,
+								},
+							],
+						},
+					],
+				}
+			: null;
+
+	return (
+		<>
+			{graphSchema && <JsonLd data={graphSchema} />}
+			<ServiceDetailView id={id} />
+		</>
+	);
 }

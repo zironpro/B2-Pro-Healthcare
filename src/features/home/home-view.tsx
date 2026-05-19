@@ -10,7 +10,7 @@ import { Testimonials } from "./components/testimonials";
 
 export function HomePageView() {
 	return (
-		<main className="flex min-h-screen flex-col">
+		<main className="flex min-h-screen flex-col" id="main-content">
 			<Hero />
 			<QuickBooking />
 			<Services />

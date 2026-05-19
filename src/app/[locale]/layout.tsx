@@ -23,8 +23,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "B2 Pro Healthcare",
-	description: "Healing Hearts, Changing Lives.",
+	metadataBase: new URL(
+		process.env.NEXT_PUBLIC_APP_URL || "https://b2prohealthcare.com"
+	),
+	title: {
+		template: "%s | B2 Pro Healthcare",
+		default: "B2 Pro Healthcare — Healing Hearts, Changing Lives",
+	},
+	description:
+		"B2 Pro Healthcare provides world-class medical expertise with compassionate care. Book an appointment with our specialist doctors today.",
+	openGraph: {
+		type: "website",
+		siteName: "B2 Pro Healthcare",
+		title: "B2 Pro Healthcare — Healing Hearts, Changing Lives",
+		description: "World-class medical expertise with compassionate care.",
+	},
 };
 
 export default async function RootLayout({
@@ -50,6 +63,12 @@ export default async function RootLayout({
 		>
 			<body>
 				<NextIntlClientProvider messages={messages}>
+					<a
+						className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-background focus:p-4 focus:text-foreground"
+						href="#main-content"
+					>
+						Skip to main content
+					</a>
 					<Navbar />
 					{children}
 					<Footer />
