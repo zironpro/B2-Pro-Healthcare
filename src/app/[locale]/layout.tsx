@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "../globals.css";
+
+import Link from "next/link";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -8,24 +9,13 @@ import { getMessages } from "next-intl/server";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 
+import { geistMono, geistSans, inter } from "@/assets/fonts";
+
+import { SITE_URL } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-	metadataBase: new URL(
-		process.env.NEXT_PUBLIC_APP_URL || "https://b2prohealthcare.com"
-	),
+	metadataBase: new URL(SITE_URL),
 	title: {
 		template: "%s | B2 Pro Healthcare",
 		default: "B2 Pro Healthcare — Healing Hearts, Changing Lives",
@@ -63,12 +53,12 @@ export default async function RootLayout({
 		>
 			<body>
 				<NextIntlClientProvider messages={messages}>
-					<a
+					<Link
 						className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-background focus:p-4 focus:text-foreground"
 						href="#main-content"
 					>
 						Skip to main content
-					</a>
+					</Link>
 					<Navbar />
 					{children}
 					<Footer />

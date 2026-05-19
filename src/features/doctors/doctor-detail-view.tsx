@@ -25,7 +25,7 @@ import {
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-import { DOCTORS } from "./data/data";
+import { DOCTORS } from "./data";
 
 export function DoctorDetailView({ doctorId }: { doctorId: number }) {
 	const t = useTranslations("Doctors");

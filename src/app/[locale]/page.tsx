@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { HomePageView } from "@/features/home/home-view";
 import { JsonLd } from "@/features/seo/json-ld";
+import { SITE_URL } from "@/lib/site-config";
 import en from "@/messages/en";
 
 export const metadata: Metadata = {
@@ -9,11 +10,9 @@ export const metadata: Metadata = {
 	description:
 		"B2 Pro Healthcare provides world-class medical expertise with compassionate care. Book an appointment with our specialist doctors today.",
 	alternates: {
-		canonical: "https://b2prohealthcare.com/en",
+		canonical: `${SITE_URL}/en`,
 	},
 };
-
-const SITE_URL = "https://b2prohealthcare.com/en";
 
 const homepageSchema = {
 	"@context": "https://schema.org",

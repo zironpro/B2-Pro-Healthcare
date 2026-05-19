@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { DOCTORS } from "@/features/doctors/data/data";
+import { DOCTORS } from "@/features/doctors/data";
 import { DoctorDetailView } from "@/features/doctors/doctor-detail-view";
 import { JsonLd } from "@/features/seo/json-ld";
 import en from "@/messages/en";
