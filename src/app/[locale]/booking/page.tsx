@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { BookingView } from "@/features/booking/booking-view";
@@ -70,6 +71,7 @@ const getBookingSchema = (locale: string, meta: BookingMeta): Graph => {
 
 export default async function BookingPage({ params }: Props) {
 	const { locale } = await params;
+	setRequestLocale(locale);
 	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 	const bookingSchema = getBookingSchema(locale, meta);
 

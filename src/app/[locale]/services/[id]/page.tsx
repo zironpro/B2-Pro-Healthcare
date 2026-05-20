@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { JsonLd } from "@/features/seo/json-ld";
@@ -107,6 +108,7 @@ const getServiceSchema = (
 
 export default async function ServiceDetailPage({ params }: Props) {
 	const { id, locale } = await params;
+	setRequestLocale(locale);
 	const service = SERVICES.find((s) => s.id === id);
 	const services = (await import(`@/messages/${locale}/services`)).default;
 	const serviceData =

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { CareerDetailView } from "@/features/careers/career-detail-view";
@@ -112,6 +113,7 @@ const getCareerSchema = (
 
 export default async function CareerDetailPage({ params }: Props) {
 	const { id, locale } = await params;
+	setRequestLocale(locale);
 	const role = OPEN_ROLES.find((r) => r.id === id);
 	const careers = (await import(`@/messages/${locale}/careers`)).default;
 	const roleData =

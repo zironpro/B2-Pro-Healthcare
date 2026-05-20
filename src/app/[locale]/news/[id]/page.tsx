@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { NEWS_ITEMS } from "@/features/news/data/data";
@@ -114,6 +115,7 @@ const getNewsSchema = (
 
 export default async function NewsDetailPage({ params }: Props) {
 	const { id, locale } = await params;
+	setRequestLocale(locale);
 	const item = NEWS_ITEMS.find((n) => n.id === id);
 
 	const news = (await import(`@/messages/${locale}/news`)).default;

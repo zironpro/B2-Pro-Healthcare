@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { NewsView } from "@/features/news/news-view";
@@ -70,6 +71,7 @@ const getNewsSchema = (locale: string, meta: NewsMeta): Graph => {
 
 export default async function NewsPage({ params }: Props) {
 	const { locale } = await params;
+	setRequestLocale(locale);
 	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 	const newsSchema = getNewsSchema(locale, meta);
 

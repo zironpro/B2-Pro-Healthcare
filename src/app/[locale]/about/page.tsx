@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { AboutView } from "@/features/about/about-view";
@@ -70,6 +71,7 @@ const getAboutSchema = (locale: string, meta: AboutMeta): Graph => {
 
 export default async function AboutPage({ params }: Props) {
 	const { locale } = await params;
+	setRequestLocale(locale);
 	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 	const aboutSchema = getAboutSchema(locale, meta);
 

@@ -4,15 +4,20 @@ import "../globals.css";
 import Link from "next/link";
 
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 
 import { geistMono, geistSans, inter } from "@/assets/fonts";
 
+import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+
+export function generateStaticParams() {
+	return routing.locales.map((locale) => ({ locale }));
+}
 
 type LayoutProps = {
 	params: Promise<{ locale: string }>;
@@ -49,6 +54,7 @@ export default async function RootLayout({
 	params: Promise<{ locale: string }>;
 }>) {
 	const { locale } = await params;
+	setRequestLocale(locale);
 	const messages = await getMessages();
 
 	return (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { ContactView } from "@/features/contact/contact-view";
@@ -70,6 +71,7 @@ const getContactSchema = (locale: string, meta: ContactMeta): Graph => {
 
 export default async function ContactPage({ params }: Props) {
 	const { locale } = await params;
+	setRequestLocale(locale);
 	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 	const contactSchema = getContactSchema(locale, meta);
 

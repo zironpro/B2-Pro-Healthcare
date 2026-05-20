@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { CareersView } from "@/features/careers/careers-view";
@@ -70,6 +71,7 @@ const getCareersSchema = (locale: string, meta: CareersMeta): Graph => {
 
 export default async function CareersPage({ params }: Props) {
 	const { locale } = await params;
+	setRequestLocale(locale);
 	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 	const careersSchema = getCareersSchema(locale, meta);
 

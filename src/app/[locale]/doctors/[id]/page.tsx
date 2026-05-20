@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph, MedicalSpecialty } from "schema-dts";
 
 import { DOCTORS } from "@/features/doctors/data";
@@ -111,6 +112,7 @@ const getDoctorSchema = (
 
 export default async function DoctorDetailPage({ params }: Props) {
 	const { id, locale } = await params;
+	setRequestLocale(locale);
 	const doctor = DOCTORS.find((d) => d.id === Number.parseInt(id, 10));
 	const doctors = (await import(`@/messages/${locale}/doctors`)).default;
 	const docData =

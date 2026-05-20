@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { setRequestLocale } from "next-intl/server";
 import type { Graph } from "schema-dts";
 
 import { HomePageView } from "@/features/home/home-view";
@@ -145,6 +146,7 @@ const getHomepageSchema = (locale: string, home: HomeTranslation): Graph => {
 export default async function Homepage({ params }: Props) {
 	// Cache bust to force Next.js compiler to refresh syntax status
 	const { locale } = await params;
+	setRequestLocale(locale);
 	const home = (await import(`@/messages/${locale}/home`)).default;
 	const homepageSchema = getHomepageSchema(locale, home);
 
