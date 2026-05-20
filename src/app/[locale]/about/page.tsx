@@ -1,55 +1,78 @@
 import type { Metadata } from "next";
 
+import type { Graph } from "schema-dts";
+
 import { AboutView } from "@/features/about/about-view";
 import { JsonLd } from "@/features/seo/json-ld";
+import { SITE_URL } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-	title: "Who We Are | B2 Pro Healthcare",
-	description:
-		"At B2 Pro Healthcare, we combine world-class medical expertise with compassionate care to ensure every patient receives the treatment they deserve.",
-	alternates: {
-		canonical: "https://b2prohealthcare.com/en/about",
-	},
+type Props = {
+	params: Promise<{ locale: string }>;
 };
 
-const SITE_URL = "https://b2prohealthcare.com/en";
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 
-const aboutSchema = {
-	"@context": "https://schema.org",
-	"@graph": [
-		{
-			"@type": "AboutPage",
-			"@id": `${SITE_URL}/about#webpage`,
-			url: `${SITE_URL}/about`,
-			name: "Who We Are | B2 Pro Healthcare",
-			isPartOf: { "@id": `${SITE_URL}/#website` },
-			about: { "@id": `${SITE_URL}/#organization` },
-			description:
-				"At B2 Pro Healthcare, we combine world-class medical expertise with compassionate care to ensure every patient receives the treatment they deserve.",
-			inLanguage: "en-US",
+	return {
+		title: meta.about.title,
+		description: meta.about.description,
+		alternates: {
+			canonical: `${SITE_URL}/${locale}/about`,
 		},
-		{
-			"@type": "BreadcrumbList",
-			"@id": `${SITE_URL}/about#breadcrumb`,
-			itemListElement: [
-				{
-					"@type": "ListItem",
-					position: 1,
-					name: "Home",
-					item: SITE_URL,
-				},
-				{
-					"@type": "ListItem",
-					position: 2,
-					name: "About",
-					item: `${SITE_URL}/about`,
-				},
-			],
-		},
-	],
+	};
+}
+
+type AboutMeta = {
+	about: {
+		title: string;
+		description: string;
+	};
 };
 
-export default function AboutPage() {
+const getAboutSchema = (locale: string, meta: AboutMeta): Graph => {
+	const localeUrl = `${SITE_URL}/${locale}`;
+	const isAr = locale === "ar";
+	return {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "AboutPage",
+				"@id": `${localeUrl}/about#webpage`,
+				url: `${localeUrl}/about`,
+				name: meta.about.title,
+				isPartOf: { "@id": `${localeUrl}/#website` },
+				about: { "@id": `${localeUrl}/#organization` },
+				description: meta.about.description,
+				inLanguage: isAr ? "ar-AE" : "en-US",
+			},
+			{
+				"@type": "BreadcrumbList",
+				"@id": `${localeUrl}/about#breadcrumb`,
+				itemListElement: [
+					{
+						"@type": "ListItem",
+						position: 1,
+						name: isAr ? "الرئيسية" : "Home",
+						item: localeUrl,
+					},
+					{
+						"@type": "ListItem",
+						position: 2,
+						name: isAr ? "من نحن" : "About",
+						item: `${localeUrl}/about`,
+					},
+				],
+			},
+		],
+	};
+};
+
+export default async function AboutPage({ params }: Props) {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
+	const aboutSchema = getAboutSchema(locale, meta);
+
 	return (
 		<>
 			<JsonLd data={aboutSchema} />

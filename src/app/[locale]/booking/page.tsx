@@ -1,55 +1,78 @@
 import type { Metadata } from "next";
 
+import type { Graph } from "schema-dts";
+
 import { BookingView } from "@/features/booking/booking-view";
 import { JsonLd } from "@/features/seo/json-ld";
+import { SITE_URL } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-	title: "Book an Appointment | B2 Pro Healthcare",
-	description:
-		"Schedule a consultation with our world-class medical specialists in just a few simple steps.",
-	alternates: {
-		canonical: "https://b2prohealthcare.com/en/booking",
-	},
+type Props = {
+	params: Promise<{ locale: string }>;
 };
 
-const SITE_URL = "https://b2prohealthcare.com/en";
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 
-const bookingSchema = {
-	"@context": "https://schema.org",
-	"@graph": [
-		{
-			"@type": "WebPage",
-			"@id": `${SITE_URL}/booking#webpage`,
-			url: `${SITE_URL}/booking`,
-			name: "Book an Appointment | B2 Pro Healthcare",
-			isPartOf: { "@id": `${SITE_URL}/#website` },
-			about: { "@id": `${SITE_URL}/#organization` },
-			description:
-				"Schedule a consultation with our world-class medical specialists in just a few simple steps.",
-			inLanguage: "en-US",
+	return {
+		title: meta.booking.title,
+		description: meta.booking.description,
+		alternates: {
+			canonical: `${SITE_URL}/${locale}/booking`,
 		},
-		{
-			"@type": "BreadcrumbList",
-			"@id": `${SITE_URL}/booking#breadcrumb`,
-			itemListElement: [
-				{
-					"@type": "ListItem",
-					position: 1,
-					name: "Home",
-					item: SITE_URL,
-				},
-				{
-					"@type": "ListItem",
-					position: 2,
-					name: "Book Appointment",
-					item: `${SITE_URL}/booking`,
-				},
-			],
-		},
-	],
+	};
+}
+
+type BookingMeta = {
+	booking: {
+		title: string;
+		description: string;
+	};
 };
 
-export default function BookingPage() {
+const getBookingSchema = (locale: string, meta: BookingMeta): Graph => {
+	const localeUrl = `${SITE_URL}/${locale}`;
+	const isAr = locale === "ar";
+	return {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebPage",
+				"@id": `${localeUrl}/booking#webpage`,
+				url: `${localeUrl}/booking`,
+				name: meta.booking.title,
+				isPartOf: { "@id": `${localeUrl}/#website` },
+				about: { "@id": `${localeUrl}/#organization` },
+				description: meta.booking.description,
+				inLanguage: isAr ? "ar-AE" : "en-US",
+			},
+			{
+				"@type": "BreadcrumbList",
+				"@id": `${localeUrl}/booking#breadcrumb`,
+				itemListElement: [
+					{
+						"@type": "ListItem",
+						position: 1,
+						name: isAr ? "الرئيسية" : "Home",
+						item: localeUrl,
+					},
+					{
+						"@type": "ListItem",
+						position: 2,
+						name: isAr ? "احجز موعداً" : "Book Appointment",
+						item: `${localeUrl}/booking`,
+					},
+				],
+			},
+		],
+	};
+};
+
+export default async function BookingPage({ params }: Props) {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
+	const bookingSchema = getBookingSchema(locale, meta);
+
 	return (
 		<>
 			<JsonLd data={bookingSchema} />

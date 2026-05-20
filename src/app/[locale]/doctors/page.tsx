@@ -1,55 +1,78 @@
 import type { Metadata } from "next";
 
+import type { Graph } from "schema-dts";
+
 import { DoctorsView } from "@/features/doctors/doctors-view";
 import { JsonLd } from "@/features/seo/json-ld";
+import { SITE_URL } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-	title: "Top Rated Specialists | B2 Pro Healthcare",
-	description:
-		"Our team consists of world-class medical professionals dedicated to providing exceptional care and personalized treatment for every patient.",
-	alternates: {
-		canonical: "https://b2prohealthcare.com/en/doctors",
-	},
+type Props = {
+	params: Promise<{ locale: string }>;
 };
 
-const SITE_URL = "https://b2prohealthcare.com/en";
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 
-const doctorsSchema = {
-	"@context": "https://schema.org",
-	"@graph": [
-		{
-			"@type": "CollectionPage",
-			"@id": `${SITE_URL}/doctors#webpage`,
-			url: `${SITE_URL}/doctors`,
-			name: "Top Rated Specialists | B2 Pro Healthcare",
-			isPartOf: { "@id": `${SITE_URL}/#website` },
-			about: { "@id": `${SITE_URL}/#organization` },
-			description:
-				"Our team consists of world-class medical professionals dedicated to providing exceptional care and personalized treatment for every patient.",
-			inLanguage: "en-US",
+	return {
+		title: meta.doctors.title,
+		description: meta.doctors.description,
+		alternates: {
+			canonical: `${SITE_URL}/${locale}/doctors`,
 		},
-		{
-			"@type": "BreadcrumbList",
-			"@id": `${SITE_URL}/doctors#breadcrumb`,
-			itemListElement: [
-				{
-					"@type": "ListItem",
-					position: 1,
-					name: "Home",
-					item: SITE_URL,
-				},
-				{
-					"@type": "ListItem",
-					position: 2,
-					name: "Doctors",
-					item: `${SITE_URL}/doctors`,
-				},
-			],
-		},
-	],
+	};
+}
+
+type DoctorsMeta = {
+	doctors: {
+		title: string;
+		description: string;
+	};
 };
 
-export default function DoctorsPage() {
+const getDoctorsSchema = (locale: string, meta: DoctorsMeta): Graph => {
+	const localeUrl = `${SITE_URL}/${locale}`;
+	const isAr = locale === "ar";
+	return {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "CollectionPage",
+				"@id": `${localeUrl}/doctors#webpage`,
+				url: `${localeUrl}/doctors`,
+				name: meta.doctors.title,
+				isPartOf: { "@id": `${localeUrl}/#website` },
+				about: { "@id": `${localeUrl}/#organization` },
+				description: meta.doctors.description,
+				inLanguage: isAr ? "ar-AE" : "en-US",
+			},
+			{
+				"@type": "BreadcrumbList",
+				"@id": `${localeUrl}/doctors#breadcrumb`,
+				itemListElement: [
+					{
+						"@type": "ListItem",
+						position: 1,
+						name: isAr ? "الرئيسية" : "Home",
+						item: localeUrl,
+					},
+					{
+						"@type": "ListItem",
+						position: 2,
+						name: isAr ? "الأطباء" : "Doctors",
+						item: `${localeUrl}/doctors`,
+					},
+				],
+			},
+		],
+	};
+};
+
+export default async function DoctorsPage({ params }: Props) {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
+	const doctorsSchema = getDoctorsSchema(locale, meta);
+
 	return (
 		<>
 			<JsonLd data={doctorsSchema} />

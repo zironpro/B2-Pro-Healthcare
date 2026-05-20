@@ -1,55 +1,78 @@
 import type { Metadata } from "next";
 
+import type { Graph } from "schema-dts";
+
 import { NewsView } from "@/features/news/news-view";
 import { JsonLd } from "@/features/seo/json-ld";
+import { SITE_URL } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-	title: "News & Publications | B2 Pro Healthcare",
-	description:
-		"Stay informed about the latest medical innovations, community health events, and clinical breakthroughs at B2 Pro Healthcare.",
-	alternates: {
-		canonical: "https://b2prohealthcare.com/en/news",
-	},
+type Props = {
+	params: Promise<{ locale: string }>;
 };
 
-const SITE_URL = "https://b2prohealthcare.com/en";
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 
-const newsSchema = {
-	"@context": "https://schema.org",
-	"@graph": [
-		{
-			"@type": "CollectionPage",
-			"@id": `${SITE_URL}/news#webpage`,
-			url: `${SITE_URL}/news`,
-			name: "News & Publications | B2 Pro Healthcare",
-			isPartOf: { "@id": `${SITE_URL}/#website` },
-			about: { "@id": `${SITE_URL}/#organization` },
-			description:
-				"Stay informed about the latest medical innovations, community health events, and clinical breakthroughs at B2 Pro Healthcare.",
-			inLanguage: "en-US",
+	return {
+		title: meta.news.title,
+		description: meta.news.description,
+		alternates: {
+			canonical: `${SITE_URL}/${locale}/news`,
 		},
-		{
-			"@type": "BreadcrumbList",
-			"@id": `${SITE_URL}/news#breadcrumb`,
-			itemListElement: [
-				{
-					"@type": "ListItem",
-					position: 1,
-					name: "Home",
-					item: SITE_URL,
-				},
-				{
-					"@type": "ListItem",
-					position: 2,
-					name: "News",
-					item: `${SITE_URL}/news`,
-				},
-			],
-		},
-	],
+	};
+}
+
+type NewsMeta = {
+	news: {
+		title: string;
+		description: string;
+	};
 };
 
-export default function NewsPage() {
+const getNewsSchema = (locale: string, meta: NewsMeta): Graph => {
+	const localeUrl = `${SITE_URL}/${locale}`;
+	const isAr = locale === "ar";
+	return {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "CollectionPage",
+				"@id": `${localeUrl}/news#webpage`,
+				url: `${localeUrl}/news`,
+				name: meta.news.title,
+				isPartOf: { "@id": `${localeUrl}/#website` },
+				about: { "@id": `${localeUrl}/#organization` },
+				description: meta.news.description,
+				inLanguage: isAr ? "ar-AE" : "en-US",
+			},
+			{
+				"@type": "BreadcrumbList",
+				"@id": `${localeUrl}/news#breadcrumb`,
+				itemListElement: [
+					{
+						"@type": "ListItem",
+						position: 1,
+						name: isAr ? "الرئيسية" : "Home",
+						item: localeUrl,
+					},
+					{
+						"@type": "ListItem",
+						position: 2,
+						name: isAr ? "الأخبار" : "News",
+						item: `${localeUrl}/news`,
+					},
+				],
+			},
+		],
+	};
+};
+
+export default async function NewsPage({ params }: Props) {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
+	const newsSchema = getNewsSchema(locale, meta);
+
 	return (
 		<>
 			<JsonLd data={newsSchema} />

@@ -1,5 +1,18 @@
 import Script from "next/script";
 
-export function JsonLd<T>({ data }: { data: T }) {
-	return <Script type="application/ld+json">{JSON.stringify(data)}</Script>;
+import type { Graph, Thing, WithContext } from "schema-dts";
+
+export function JsonLd<T extends WithContext<Thing> | Graph>({
+	data,
+}: {
+	data: T;
+}) {
+	return (
+		<Script
+			// biome-ignore lint/security/noDangerouslySetInnerHtml: required for JSON-LD injection
+			dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+			id="json-ld"
+			type="application/ld+json"
+		/>
+	);
 }

@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
 
+import type { Graph } from "schema-dts";
+
 import { JsonLd } from "@/features/seo/json-ld";
 import { SERVICES } from "@/features/services/data/data";
 import { ServiceDetailView } from "@/features/services/service-detail-view";
-import en from "@/messages/en";
 
 type Props = {
 	params: Promise<{ id: string; locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const { id } = await params;
+	const { id, locale } = await params;
 	const service = SERVICES.find((s) => s.id === id);
-	const serviceData = en.ContentServices[id as keyof typeof en.ContentServices];
+	const services = (await import(`@/messages/${locale}/services`)).default;
+	const serviceData =
+		services.ContentServices[id as keyof typeof services.ContentServices];
 
 	if (!service || !serviceData) {
 		return {
@@ -31,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			],
 		},
 		alternates: {
-			canonical: `https://b2prohealthcare.com/en/services/${id}`,
+			canonical: `https://b2prohealthcare.com/${locale}/services/${id}`,
 		},
 	};
 }
@@ -42,56 +45,76 @@ export function generateStaticParams() {
 	}));
 }
 
-export default async function ServiceDetailPage({ params }: Props) {
-	const { id } = await params;
-	const service = SERVICES.find((s) => s.id === id);
-	const serviceData = en.ContentServices[id as keyof typeof en.ContentServices];
+type ServiceType = {
+	image: string;
+};
 
-	const SITE_URL = "https://b2prohealthcare.com/en";
+type ServiceDataType = {
+	title: string;
+	about: string;
+};
+
+const getServiceSchema = (
+	id: string,
+	locale: string,
+	service: ServiceType,
+	serviceData: ServiceDataType
+): Graph => {
+	const SITE_URL = `https://b2prohealthcare.com/${locale}`;
+	return {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "MedicalWebPage",
+				"@id": `${SITE_URL}/services/${id}#webpage`,
+				url: `${SITE_URL}/services/${id}`,
+				name: serviceData.title,
+				description: serviceData.about,
+				image: `${SITE_URL}${service.image}`,
+				publisher: {
+					"@type": "Organization",
+					name:
+						locale === "ar" ? "بي تو برو للرعاية الصحية" : "B2 Pro Healthcare",
+				},
+			},
+			{
+				"@type": "BreadcrumbList",
+				"@id": `${SITE_URL}/services/${id}#breadcrumb`,
+				itemListElement: [
+					{
+						"@type": "ListItem",
+						position: 1,
+						name: locale === "ar" ? "الرئيسية" : "Home",
+						item: SITE_URL,
+					},
+					{
+						"@type": "ListItem",
+						position: 2,
+						name: locale === "ar" ? "الخدمات" : "Services",
+						item: `${SITE_URL}/services`,
+					},
+					{
+						"@type": "ListItem",
+						position: 3,
+						name: serviceData.title,
+						item: `${SITE_URL}/services/${id}`,
+					},
+				],
+			},
+		],
+	};
+};
+
+export default async function ServiceDetailPage({ params }: Props) {
+	const { id, locale } = await params;
+	const service = SERVICES.find((s) => s.id === id);
+	const services = (await import(`@/messages/${locale}/services`)).default;
+	const serviceData =
+		services.ContentServices[id as keyof typeof services.ContentServices];
 
 	const graphSchema =
 		service && serviceData
-			? {
-					"@context": "https://schema.org",
-					"@graph": [
-						{
-							"@type": "MedicalWebPage",
-							"@id": `${SITE_URL}/services/${id}#webpage`,
-							url: `${SITE_URL}/services/${id}`,
-							name: serviceData.title,
-							description: serviceData.about,
-							image: `${SITE_URL}${service.image}`,
-							publisher: {
-								"@type": "Organization",
-								name: "B2 Pro Healthcare",
-							},
-						},
-						{
-							"@type": "BreadcrumbList",
-							"@id": `${SITE_URL}/services/${id}#breadcrumb`,
-							itemListElement: [
-								{
-									"@type": "ListItem",
-									position: 1,
-									name: "Home",
-									item: SITE_URL,
-								},
-								{
-									"@type": "ListItem",
-									position: 2,
-									name: "Services",
-									item: `${SITE_URL}/services`,
-								},
-								{
-									"@type": "ListItem",
-									position: 3,
-									name: serviceData.title,
-									item: `${SITE_URL}/services/${id}`,
-								},
-							],
-						},
-					],
-				}
+			? getServiceSchema(id, locale, service, serviceData)
 			: null;
 
 	return (

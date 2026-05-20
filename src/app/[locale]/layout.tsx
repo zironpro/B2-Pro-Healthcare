@@ -14,21 +14,32 @@ import { geistMono, geistSans, inter } from "@/assets/fonts";
 import { SITE_URL } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-	metadataBase: new URL(SITE_URL),
-	title: {
-		template: "%s | B2 Pro Healthcare",
-		default: "B2 Pro Healthcare — Healing Hearts, Changing Lives",
-	},
-	description:
-		"B2 Pro Healthcare provides world-class medical expertise with compassionate care. Book an appointment with our specialist doctors today.",
-	openGraph: {
-		type: "website",
-		siteName: "B2 Pro Healthcare",
-		title: "B2 Pro Healthcare — Healing Hearts, Changing Lives",
-		description: "World-class medical expertise with compassionate care.",
-	},
+type LayoutProps = {
+	params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({
+	params,
+}: LayoutProps): Promise<Metadata> {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
+
+	return {
+		metadataBase: new URL(SITE_URL),
+		title: {
+			template: meta.title.template,
+			default: meta.title.default,
+		},
+		description: meta.description,
+		openGraph: {
+			type: "website",
+			siteName:
+				locale === "ar" ? "بي تو برو للرعاية الصحية" : "B2 Pro Healthcare",
+			title: meta.title.default,
+			description: meta.description,
+		},
+	};
+}
 
 export default async function RootLayout({
 	children,

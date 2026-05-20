@@ -1,55 +1,78 @@
 import type { Metadata } from "next";
 
+import type { Graph } from "schema-dts";
+
 import { JsonLd } from "@/features/seo/json-ld";
 import { ServicesView } from "@/features/services/services-view";
+import { SITE_URL } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-	title: "Our Medical Specialties | B2 Pro Healthcare",
-	description:
-		"Combining state-of-the-art technology with compassionate care to provide you with the best healthcare experience.",
-	alternates: {
-		canonical: "https://b2prohealthcare.com/en/services",
-	},
+type Props = {
+	params: Promise<{ locale: string }>;
 };
 
-const SITE_URL = "https://b2prohealthcare.com/en";
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
 
-const servicesSchema = {
-	"@context": "https://schema.org",
-	"@graph": [
-		{
-			"@type": "CollectionPage",
-			"@id": `${SITE_URL}/services#webpage`,
-			url: `${SITE_URL}/services`,
-			name: "Our Medical Specialties | B2 Pro Healthcare",
-			isPartOf: { "@id": `${SITE_URL}/#website` },
-			about: { "@id": `${SITE_URL}/#organization` },
-			description:
-				"Combining state-of-the-art technology with compassionate care to provide you with the best healthcare experience.",
-			inLanguage: "en-US",
+	return {
+		title: meta.services.title,
+		description: meta.services.description,
+		alternates: {
+			canonical: `${SITE_URL}/${locale}/services`,
 		},
-		{
-			"@type": "BreadcrumbList",
-			"@id": `${SITE_URL}/services#breadcrumb`,
-			itemListElement: [
-				{
-					"@type": "ListItem",
-					position: 1,
-					name: "Home",
-					item: SITE_URL,
-				},
-				{
-					"@type": "ListItem",
-					position: 2,
-					name: "Services",
-					item: `${SITE_URL}/services`,
-				},
-			],
-		},
-	],
+	};
+}
+
+type ServicesMeta = {
+	services: {
+		title: string;
+		description: string;
+	};
 };
 
-export default function ServicesPage() {
+const getServicesSchema = (locale: string, meta: ServicesMeta): Graph => {
+	const localeUrl = `${SITE_URL}/${locale}`;
+	const isAr = locale === "ar";
+	return {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "CollectionPage",
+				"@id": `${localeUrl}/services#webpage`,
+				url: `${localeUrl}/services`,
+				name: meta.services.title,
+				isPartOf: { "@id": `${localeUrl}/#website` },
+				about: { "@id": `${localeUrl}/#organization` },
+				description: meta.services.description,
+				inLanguage: isAr ? "ar-AE" : "en-US",
+			},
+			{
+				"@type": "BreadcrumbList",
+				"@id": `${localeUrl}/services#breadcrumb`,
+				itemListElement: [
+					{
+						"@type": "ListItem",
+						position: 1,
+						name: isAr ? "الرئيسية" : "Home",
+						item: localeUrl,
+					},
+					{
+						"@type": "ListItem",
+						position: 2,
+						name: isAr ? "الخدمات" : "Services",
+						item: `${localeUrl}/services`,
+					},
+				],
+			},
+		],
+	};
+};
+
+export default async function ServicesPage({ params }: Props) {
+	const { locale } = await params;
+	const meta = (await import(`@/messages/${locale}/metadata`)).default;
+	const servicesSchema = getServicesSchema(locale, meta);
+
 	return (
 		<>
 			<JsonLd data={servicesSchema} />
