@@ -6,6 +6,7 @@ import type { Graph } from "schema-dts";
 import { NEWS_ITEMS } from "@/features/news/data/data";
 import { NewsDetailView } from "@/features/news/news-detail-view";
 import { JsonLd } from "@/features/seo/json-ld";
+import { SITE_URL } from "@/lib/site-config";
 
 type Props = {
 	params: Promise<{ id: string; locale: string }>;
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			],
 		},
 		alternates: {
-			canonical: `https://b2prohealthcare.com/${locale}/news/${id}`,
+			canonical: `${SITE_URL}/${locale}/news/${id}`,
 		},
 	};
 }
@@ -64,15 +65,15 @@ const getNewsSchema = (
 	item: NewsItemType,
 	title: string
 ): Graph => {
-	const SITE_URL = `https://b2prohealthcare.com/${locale}`;
+	const localSiteUrl = `${SITE_URL}/${locale}`;
 	return {
 		"@context": "https://schema.org",
 		"@graph": [
 			{
 				"@type": "NewsArticle",
-				"@id": `${SITE_URL}/news/${id}#newsarticle`,
+				"@id": `${localSiteUrl}/news/${id}#newsarticle`,
 				headline: title,
-				image: [`${SITE_URL}${item.image}`],
+				image: [`${localSiteUrl}${item.image}`],
 				datePublished: new Date(item.date).toISOString(),
 				author: [
 					{
@@ -81,31 +82,31 @@ const getNewsSchema = (
 							locale === "ar"
 								? "بي تو برو للرعاية الصحية"
 								: "B2 Pro Healthcare",
-						url: SITE_URL,
+						url: localSiteUrl,
 					},
 				],
 			},
 			{
 				"@type": "BreadcrumbList",
-				"@id": `${SITE_URL}/news/${id}#breadcrumb`,
+				"@id": `${localSiteUrl}/news/${id}#breadcrumb`,
 				itemListElement: [
 					{
 						"@type": "ListItem",
 						position: 1,
 						name: locale === "ar" ? "الرئيسية" : "Home",
-						item: SITE_URL,
+						item: localSiteUrl,
 					},
 					{
 						"@type": "ListItem",
 						position: 2,
 						name: locale === "ar" ? "الأخبار" : "News",
-						item: `${SITE_URL}/news`,
+						item: `${localSiteUrl}/news`,
 					},
 					{
 						"@type": "ListItem",
 						position: 3,
 						name: title,
-						item: `${SITE_URL}/news/${id}`,
+						item: `${localSiteUrl}/news/${id}`,
 					},
 				],
 			},

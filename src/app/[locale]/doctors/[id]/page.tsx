@@ -6,6 +6,7 @@ import type { Graph, MedicalSpecialty } from "schema-dts";
 import { DOCTORS } from "@/features/doctors/data";
 import { DoctorDetailView } from "@/features/doctors/doctor-detail-view";
 import { JsonLd } from "@/features/seo/json-ld";
+import { SITE_URL } from "@/lib/site-config";
 
 type Props = {
 	params: Promise<{ id: string; locale: string }>;
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			],
 		},
 		alternates: {
-			canonical: `https://b2prohealthcare.com/${locale}/doctors/${id}`,
+			canonical: `${SITE_URL}/${locale}/doctors/${id}`,
 		},
 	};
 }
@@ -62,16 +63,16 @@ const getDoctorSchema = (
 	doctor: DoctorType,
 	docData: DoctorDataType
 ): Graph => {
-	const SITE_URL = `https://b2prohealthcare.com/${locale}`;
+	const localSiteUrl = `${SITE_URL}/${locale}`;
 	return {
 		"@context": "https://schema.org",
 		"@graph": [
 			{
 				"@type": "Physician",
-				"@id": `${SITE_URL}/doctors/${id}#physician`,
+				"@id": `${localSiteUrl}/doctors/${id}#physician`,
 				name: docData.name,
 				description: docData.about,
-				image: `${SITE_URL}${doctor.image}`,
+				image: `${localSiteUrl}${doctor.image}`,
 				medicalSpecialty: docData.specialty as MedicalSpecialty,
 				address: {
 					"@type": "PostalAddress",
@@ -84,25 +85,25 @@ const getDoctorSchema = (
 			},
 			{
 				"@type": "BreadcrumbList",
-				"@id": `${SITE_URL}/doctors/${id}#breadcrumb`,
+				"@id": `${localSiteUrl}/doctors/${id}#breadcrumb`,
 				itemListElement: [
 					{
 						"@type": "ListItem",
 						position: 1,
 						name: locale === "ar" ? "الرئيسية" : "Home",
-						item: SITE_URL,
+						item: localSiteUrl,
 					},
 					{
 						"@type": "ListItem",
 						position: 2,
 						name: locale === "ar" ? "الأطباء" : "Doctors",
-						item: `${SITE_URL}/doctors`,
+						item: `${localSiteUrl}/doctors`,
 					},
 					{
 						"@type": "ListItem",
 						position: 3,
 						name: docData.name,
-						item: `${SITE_URL}/doctors/${id}`,
+						item: `${localSiteUrl}/doctors/${id}`,
 					},
 				],
 			},

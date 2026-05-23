@@ -6,6 +6,7 @@ import type { Graph } from "schema-dts";
 import { JsonLd } from "@/features/seo/json-ld";
 import { SERVICES } from "@/features/services/data/data";
 import { ServiceDetailView } from "@/features/services/service-detail-view";
+import { SITE_URL } from "@/lib/site-config";
 
 type Props = {
 	params: Promise<{ id: string; locale: string }>;
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			],
 		},
 		alternates: {
-			canonical: `https://b2prohealthcare.com/${locale}/services/${id}`,
+			canonical: `${SITE_URL}/${locale}/services/${id}`,
 		},
 	};
 }
@@ -61,17 +62,17 @@ const getServiceSchema = (
 	service: ServiceType,
 	serviceData: ServiceDataType
 ): Graph => {
-	const SITE_URL = `https://b2prohealthcare.com/${locale}`;
+	const localSiteUrl = `${SITE_URL}/${locale}`;
 	return {
 		"@context": "https://schema.org",
 		"@graph": [
 			{
 				"@type": "MedicalWebPage",
-				"@id": `${SITE_URL}/services/${id}#webpage`,
-				url: `${SITE_URL}/services/${id}`,
+				"@id": `${localSiteUrl}/services/${id}#webpage`,
+				url: `${localSiteUrl}/services/${id}`,
 				name: serviceData.title,
 				description: serviceData.about,
-				image: `${SITE_URL}${service.image}`,
+				image: `${localSiteUrl}${service.image}`,
 				publisher: {
 					"@type": "Organization",
 					name:
@@ -80,25 +81,25 @@ const getServiceSchema = (
 			},
 			{
 				"@type": "BreadcrumbList",
-				"@id": `${SITE_URL}/services/${id}#breadcrumb`,
+				"@id": `${localSiteUrl}/services/${id}#breadcrumb`,
 				itemListElement: [
 					{
 						"@type": "ListItem",
 						position: 1,
 						name: locale === "ar" ? "الرئيسية" : "Home",
-						item: SITE_URL,
+						item: localSiteUrl,
 					},
 					{
 						"@type": "ListItem",
 						position: 2,
 						name: locale === "ar" ? "الخدمات" : "Services",
-						item: `${SITE_URL}/services`,
+						item: `${localSiteUrl}/services`,
 					},
 					{
 						"@type": "ListItem",
 						position: 3,
 						name: serviceData.title,
-						item: `${SITE_URL}/services/${id}`,
+						item: `${localSiteUrl}/services/${id}`,
 					},
 				],
 			},

@@ -6,6 +6,7 @@ import type { Graph } from "schema-dts";
 import { CareerDetailView } from "@/features/careers/career-detail-view";
 import { OPEN_ROLES } from "@/features/careers/data/data";
 import { JsonLd } from "@/features/seo/json-ld";
+import { SITE_URL } from "@/lib/site-config";
 
 type Props = {
 	params: Promise<{ id: string; locale: string }>;
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			description: roleData.description,
 		},
 		alternates: {
-			canonical: `https://b2prohealthcare.com/${locale}/careers/${id}`,
+			canonical: `${SITE_URL}/${locale}/careers/${id}`,
 		},
 	};
 }
@@ -53,13 +54,13 @@ const getCareerSchema = (
 	locale: string,
 	roleData: CareerDataType
 ): Graph => {
-	const SITE_URL = `https://b2prohealthcare.com/${locale}`;
+	const localSiteUrl = `${SITE_URL}/${locale}`;
 	return {
 		"@context": "https://schema.org",
 		"@graph": [
 			{
 				"@type": "JobPosting",
-				"@id": `${SITE_URL}/careers/${id}#jobposting`,
+				"@id": `${localSiteUrl}/careers/${id}#jobposting`,
 				title: roleData.title,
 				description: roleData.about,
 				datePosted: new Date("2026-05-01T00:00:00Z").toISOString(),
@@ -69,7 +70,7 @@ const getCareerSchema = (
 					"@type": "Organization",
 					name:
 						locale === "ar" ? "بي تو برو للرعاية الصحية" : "B2 Pro Healthcare",
-					sameAs: SITE_URL,
+					sameAs: localSiteUrl,
 				},
 				jobLocation: {
 					"@type": "Place",
@@ -85,25 +86,25 @@ const getCareerSchema = (
 			},
 			{
 				"@type": "BreadcrumbList",
-				"@id": `${SITE_URL}/careers/${id}#breadcrumb`,
+				"@id": `${localSiteUrl}/careers/${id}#breadcrumb`,
 				itemListElement: [
 					{
 						"@type": "ListItem",
 						position: 1,
 						name: locale === "ar" ? "الرئيسية" : "Home",
-						item: SITE_URL,
+						item: localSiteUrl,
 					},
 					{
 						"@type": "ListItem",
 						position: 2,
 						name: locale === "ar" ? "الوظائف" : "Careers",
-						item: `${SITE_URL}/careers`,
+						item: `${localSiteUrl}/careers`,
 					},
 					{
 						"@type": "ListItem",
 						position: 3,
 						name: roleData.title,
-						item: `${SITE_URL}/careers/${id}`,
+						item: `${localSiteUrl}/careers/${id}`,
 					},
 				],
 			},
